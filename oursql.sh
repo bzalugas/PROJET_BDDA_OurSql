@@ -1,2 +1,2 @@
-javac -d CODE/bin CODE/*.java
-java -cp CODE/bin Main $1
+javac -d CODE/bin CODE/src/*.java
+java -cp CODE/bin Main ./DB
