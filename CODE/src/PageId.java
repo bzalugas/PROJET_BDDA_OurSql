@@ -24,7 +24,6 @@ public class PageId{
             && obj.getPageIdx() == this.PageIdx;
     }
 
-
     // Gets FileIdx.
     public int getFileIdx(){
         return FileIdx;
