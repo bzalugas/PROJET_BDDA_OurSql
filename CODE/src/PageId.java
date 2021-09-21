@@ -1,10 +1,10 @@
-// Class that manage page's id.
+// Class that manage pages id.
 
 public class PageId{
     
     // Properties of the PageId class.
 
-    int FileIdx; // Id of the file which contains the current page.
-    int PageIdx; // Id of the current page.
+    private int FileIdx; // Id of the file which contains the current page.
+    private int PageIdx; // Id of the current page.
 
 }
