@@ -14,4 +14,22 @@ public class DiskManager
             INSTANCE = new DiskManager();
         return INSTANCE;
     }
+
+    public PageId AllocPage(){
+
+    }
+
+    public void deallocPage(PageId pi){
+
+    }
+
+    public void readPage(PageId pi, ByteBuffer buf){
+
+    }
+
+    public void writePage(PageId pi, ByteBuffer buf){
+
+    }
+
+
 }
