@@ -3,11 +3,13 @@ public class DataFile
 {
     //array to keep trace of which page is available
     private Byte[] pagesStatus = null;
+    private String filePath = null;
     private int fileIndex = -1;
 
-    public DataFile(int fileIndex){
+    public DataFile(int fileIndex, String filePath){
         pagesStatus = new Byte[DBParams.maxPagesPerFile];
         this.fileIndex = fileIndex;
+        this.filePath = filePath;
         this.init();
     }
 
@@ -28,5 +30,9 @@ public class DataFile
 
     public int getFileIndex(){
         return (fileIndex);
+    }
+
+    public String getFilePath(){
+        return (filePath);
     }
 }
