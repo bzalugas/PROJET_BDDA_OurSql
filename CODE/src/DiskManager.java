@@ -1,6 +1,8 @@
 import java.nio.ByteBuffer;
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 // class to manage disk operations (Singleton)
 public class DiskManager
 {
@@ -40,33 +42,33 @@ public class DiskManager
 
     }
 
-    public void readPage(PageId pi, ByteBuffer buf){
-        long start = pi.getPageIdx * DBParams.PageSize;
-        String pathFile = DBParams.DBPath + "/F" + Integer.toString(pi.FileIdx) + ".df";
+    public void readPage(PageId pi, ByteBuffer buf) throws FileNotFoundException, IOException {
+        int start = pi.getPageIdx() * DBParams.pageSize;
+        String pathFile = DBParams.DBPath + "/F" + Integer.toString(pi.getFileIdx()) + ".df";
         RandomAccessFile file = new RandomAccessFile(pathFile, "r");
 
         //place cursor on the begining of the page
         file.seek(start);
         //verify if the buffer is not too big in order to read only the asked page
         //if the buffer length is different from PageSize, read in the file byte by byte
-        if (buf.array().length == DBParams.PageSize)
+        if (buf.array().length == DBParams.pageSize)
             file.read(buf.array());
         else
-            for (long i = 0; i < DBParams.PageSize; i++)
+            for (int i = 0; i < DBParams.pageSize; i++)
                 buf.put(i, file.readByte());
         file.close();
     }
 
-    public void writePage(PageId pi, ByteBuffer buf){
-        long start = pi.getPageIdx * DBParams.PageSize;
-        String pathFile = DBParams.DBPath + "/F" + Integer.toString(pi.FileIdx) + ".df";
+    public void writePage(PageId pi, ByteBuffer buf) throws FileNotFoundException, IOException {
+        int start = pi.getPageIdx() * DBParams.pageSize;
+        String pathFile = DBParams.DBPath + "/F" + Integer.toString(pi.getFileIdx()) + ".df";
         RandomAccessFile file = new RandomAccessFile(pathFile, "rw");
 
         file.seek(start);
-        if (buf.array().length == DBParams.PageSize)
+        if (buf.array().length == DBParams.pageSize)
             file.write(buf.array());
         else
-            for (long i = 0; i < DBParams.PageSize; i++)
+            for (int i = 0; i < DBParams.pageSize; i++)
                 file.writeByte(buf.get(i)); //maybe need to use file.write ??
         file.close();
     }
