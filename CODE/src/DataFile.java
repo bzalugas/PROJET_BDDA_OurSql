@@ -3,9 +3,11 @@ public class DataFile
 {
     //array to keep trace of which page is available
     private Byte[] pagesStatus = null;
+    private int fileIndex = -1;
 
-    public DataFile(){
+    public DataFile(int fileIndex){
         pagesStatus = new Byte[DBParams.maxPagesPerFile];
+        this.fileIndex = fileIndex;
         this.init();
     }
 
@@ -17,10 +19,14 @@ public class DataFile
     }
 
     //return the index of first available page in file, or -1 if there is not
-    public int PageAvailable(){
+    public int pageAvailable(){
         for (int i = 0; i < DBParams.maxPagesPerFile; i++)
             if (pagesStatus[i] == 0)
                 return (i);
         return (-1);
+    }
+
+    public int getFileIndex(){
+        return (fileIndex);
     }
 }
