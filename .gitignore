@@ -123,6 +123,5 @@ Temporary Items
 .history
 .ionide
 
-#répertoire de tests
-CODE/tests
-# End of https://www.toptal.com/developers/gitignore/api/java,macos,emacs,visualstudiocode
+# DB files
+*.df
