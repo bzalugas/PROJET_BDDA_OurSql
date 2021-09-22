@@ -2,12 +2,12 @@
 public class DataFile
 {
     //array to keep trace of which page is available
-    private Byte[] pagesStatus = null;
+    private byte[] pagesStatus = null;
     private String filePath = null;
     private int fileIndex = -1;
 
     public DataFile(int fileIndex, String filePath){
-        pagesStatus = new Byte[DBParams.maxPagesPerFile];
+        pagesStatus = new byte[DBParams.maxPagesPerFile];
         this.fileIndex = fileIndex;
         this.filePath = filePath;
         this.init();
@@ -34,5 +34,13 @@ public class DataFile
 
     public String getFilePath(){
         return (filePath);
+    }
+
+    public void setUsedPage(int pageIdx){
+        pagesStatus[pageIdx] = 1;
+    }
+
+    public void setFreePage(int pageIdx){
+        pagesStatus[pageIdx] = 0;
     }
 }

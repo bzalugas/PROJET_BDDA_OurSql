@@ -17,8 +17,9 @@ public class Registry implements Serializable {
         return instance;
     }
 
-    public void newFile(){
-        //add new DataFile to ArrayList (increment lastFileIndex)
+    //method to add new DataFile in the list
+    public void newFile(String filePath){
+        files.add(new DataFile(++lastFileIndex, filePath));
     }
 
     public int[] pageAvailable() {
@@ -28,6 +29,14 @@ public class Registry implements Serializable {
             if ((page[1] = file.pageAvailable()) != -1)
                 page[0] = file.getFileIndex();
         return (page);
+    }
+
+    public void setUsedPage(PageId page){
+        files.get(page.getFileIdx()).setUsedPage(page.getPageIdx());
+    }
+
+    public void setFreePage(PageId page){
+        files.get(page.getFileIdx()).setFreePage(page.getPageIdx());
     }
 
     public int getLastFileIndex(){
