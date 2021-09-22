@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 // class to manage disk operations (Singleton)
 public class DiskManager
 {
@@ -22,20 +23,22 @@ public class DiskManager
         return instance;
     }
 
-    public PageId AllocPage(){
+    public PageId AllocPage() throws IOException {
         int[] page = reg.pageAvailable();
         if (page[0] == -1)
         {
             //Create file -> add file & pages to reg -> page=reg.pageAvailable();
             String filePath = DBParams.DBPath + "/F" + Integer.toString(reg.getLastFileIndex() + 1) + ".df";
             File f = new File(filePath);
+            if (!f.exists())
+                f.createNewFile();
+            //else throw FileAlreadyExistsException
             reg.newFile(filePath);
             page = reg.pageAvailable();
         }
         PageId pi = new PageId(page[0], page[1]);
         reg.setUsedPage(pi);
         return (pi);
-
     }
 
     public void deallocPage(PageId pi){

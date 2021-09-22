@@ -5,7 +5,7 @@ public class Registry implements Serializable {
 
     private static Registry instance = null;
     private ArrayList<DataFile> files = new ArrayList<DataFile>();
-    private int lastFileIndex = 0;
+    private int lastFileIndex = -1;
 
     private Registry(){
         

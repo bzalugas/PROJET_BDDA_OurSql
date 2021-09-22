@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 //class for a single DataFile
 public class DataFile
 {
@@ -42,5 +44,9 @@ public class DataFile
 
     public void setFreePage(int pageIdx){
         pagesStatus[pageIdx] = 0;
+    }
+
+    public String toString(){
+        return ("File index : " + fileIndex + ", pages : " + Arrays.toString(pagesStatus));
     }
 }
