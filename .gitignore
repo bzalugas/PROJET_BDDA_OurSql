@@ -125,3 +125,7 @@ Temporary Items
 
 # DB files
 *.df
+
+# Registry files
+
+*.reg
