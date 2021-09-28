@@ -5,6 +5,13 @@ public class Frame {
     private int pinCount;
     private byte flagDirty;
 
+    // Constructur of the Frame class
+    public void Frame(PageId pageId, int pinCount, byte flagDirty) {
+        this.pageId = pageId;
+        this.pinCount = pinCount;
+        this.flagDirty = flagDirty;
+    }
+
     // Getter of the pageId property
     public PageId getPageId(){
         return this.pageId;

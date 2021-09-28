@@ -8,7 +8,6 @@ public class BufferManager {
 
 	}
 
-
 	public void freePage(PageId pageId, byte valDirty) {
 
 	}
