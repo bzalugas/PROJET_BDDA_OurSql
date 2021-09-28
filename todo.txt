@@ -1,9 +1,9 @@
 U : Urgent ; O : Obligatoire mais pas urgent ; Af : Pas obligatoire, mais à faire ; Opt : optionnel
 
-Af - Implémenter deallocPage()
-
 Af - Toutes les gestions d'exceptions (créer des classes pour les exceptions non existantes qui pourraient survenir)
 
-U - Ecrire la classe de tests
+U - Ecrire la classe de tests BufferManager
 
 U - Ecrire getPage() (Kevin) | Ecrire freePage() (Pierre) | FlushAll() (On verra)
+
+U - Faire un add propre dans BufferManager (verifie si une frame est deja dans la liste, et tej celle avec le pincount le plus bas)
