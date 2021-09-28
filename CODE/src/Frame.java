@@ -2,14 +2,14 @@
 
 public class Frame {
     private PageId pageId;
-    private int pinCount;
-    private boolean flagDirty;
+    private int pinCount = 0;
+    private boolean flagDirty = false;
+    private ByteBuffer buffer;
 
     // Constructur of the Frame class
-    public void Frame(PageId pageId, int pinCount, boolean flagDirty) {
+    public void Frame(PageId pageId, ByteBuffer buffer) {
         this.pageId = pageId;
-        this.pinCount = pinCount;
-        this.flagDirty = flagDirty;
+        this.buffer = buffer;
     }
 
     // Getter of the pageId property
@@ -27,6 +27,11 @@ public class Frame {
         return this.FlagDirty;
     }
 
+    // Getter of the buffer property
+    public ByteBuffer getBuffer(){
+        return this.buffer;
+    }
+
     // Setter of the pageId property
     public void setPageId(PageId pageId) {
         this.pageId = pageId;
@@ -40,6 +45,11 @@ public class Frame {
     // Setter of the flagDirty property
     public void flagDirty(boolean flagDirty) {
         this.flagDirty = flagDirty;
+    }
+
+    // Setter of the buffer property
+    public ByteBuffer setBuffer(ByteBuffer buffer){
+         this.buffer = buffer;
     }
 
 
