@@ -1,4 +1,4 @@
-// Class that manage Frames.
+// Class that manage Frame's properties and method.
 
 public class Frame {
     private PageId pageId;

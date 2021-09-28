@@ -5,3 +5,5 @@ Af - Implémenter deallocPage()
 Af - Toutes les gestions d'exceptions (créer des classes pour les exceptions non existantes qui pourraient survenir)
 
 U - Ecrire la classe de tests
+
+U - Ecrire getPage() (Kevin) | Ecrire freePage() (Pierre) | FlushAll() (On verra)
