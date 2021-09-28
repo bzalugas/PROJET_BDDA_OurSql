@@ -40,9 +40,10 @@ public class DiskManager
         reg.setUsedPage(pi);
         return (pi);
     }
-
+    
+    //The pagesStatus of the page is initialised to 0
     public void deallocPage(PageId pi){
-
+          reg.setFreePage(pi);
     }
 
     public void readPage(PageId pi, ByteBuffer buf) throws FileNotFoundException, IOException {
