@@ -1,5 +1,7 @@
 
-Main class of the project.
+//Main class of the project.
+
+import java.io.File;
 
 public class Main{
 
@@ -16,7 +18,11 @@ public class Main{
             DiskManager dm = DiskManager.getInstance();
         
             PageId page;
-        
+
+            Registry reg = Registry.getInstance();
+            reg.save();
+            reg.retrieve(new File("./DB/registry.reg"));
+
             for (int i = 0; i < 23; i++){
         
                 page = dm.AllocPage();

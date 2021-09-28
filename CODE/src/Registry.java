@@ -13,6 +13,7 @@ public class Registry implements Serializable {
     private static Registry instance = null;
     private ArrayList<DataFile> files = new ArrayList<DataFile>();
     private int lastFileIndex = -1;
+    private File file;
     
     private Registry(){
 
@@ -29,15 +30,42 @@ public class Registry implements Serializable {
         files.add(new DataFile(++lastFileIndex, filePath));
     }
 
+    //Method to save the Registry instance.
     public void save () throws IOException{
-            File file  = new File("./DB/registry.reg");
-            FileOutputStream fileOut = new FileOutputStream(file);
+            this.file  = new File("./DB/registry.reg");
+
+            FileOutputStream fileOut = new FileOutputStream(this.file);
             ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+
             objOut.writeObject(this);
             objOut.flush();
             objOut.close();
             fileOut.close();
 
+    }
+
+    // Method that retrieve an instance of Registry from a file.
+    static Registry retrieve(File file) throws IOException {
+        if(file.exists()){
+            try {
+                FileInputStream fin = new FileInputStream(file);
+                ObjectInputStream oin = new ObjectInputStream(fin);
+
+                Registry reg = (Registry)oin.readObject();
+
+                oin.close();
+                fin.close();
+
+                return reg;
+
+            } catch (IOException e) {
+                System.out.println("IOException : " + e);
+            } catch (ClassNotFoundException e) {
+                System.out.println("ClassNotFoundException : " + e);
+            }
+        }
+    return null;    
+    
     }
 
     public int[] pageAvailable() {
