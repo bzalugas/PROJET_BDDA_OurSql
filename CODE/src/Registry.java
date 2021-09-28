@@ -73,7 +73,11 @@ public class Registry implements Serializable {
 
         for (DataFile file : files)
             if ((page[1] = file.pageAvailable()) != -1)
+            {
                 page[0] = file.getFileIndex();
+                return (page);
+            }
+
         return (page);
     }
 
