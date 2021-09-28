@@ -1,5 +1,7 @@
 // Class that manage Frame's properties and method.
 
+import java.nio.ByteBuffer;
+
 public class Frame {
     private PageId pageId;
     private int pinCount = 0;
