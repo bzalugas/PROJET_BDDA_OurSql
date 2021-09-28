@@ -9,7 +9,7 @@ public class Frame {
     private ByteBuffer buffer;
 
     // Constructur of the Frame class
-    public void Frame(PageId pageId, ByteBuffer buffer) {
+    public Frame(PageId pageId, ByteBuffer buffer) {
         this.pageId = pageId;
         this.buffer = buffer;
     }
@@ -26,7 +26,7 @@ public class Frame {
 
     // Getter of the flagDirty property
     public boolean getFlagDirty(){
-        return this.FlagDirty;
+        return this.flagDirty;
     }
 
     // Getter of the buffer property
@@ -40,12 +40,12 @@ public class Frame {
     }
 
     // Setter of the pinCount property
-    public void setPinCount(int pinCount) {
+    public void setPinCount(int pinCount){
         this.pinCount = pinCount;
     }
 
     // Setter of the flagDirty property
-    public void flagDirty(boolean flagDirty) {
+    public void setFlagDirty(boolean flagDirty) {
         this.flagDirty = flagDirty;
     }
 
@@ -53,6 +53,5 @@ public class Frame {
     public ByteBuffer setBuffer(ByteBuffer buffer){
          this.buffer = buffer;
     }
-
 
 }
