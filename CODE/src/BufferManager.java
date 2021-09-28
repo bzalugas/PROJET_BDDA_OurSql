@@ -8,8 +8,12 @@ public class BufferManager {
 
 	}
 
-	public void freePage(PageId pageId, byte valDirty) {
-
+	public void freePage(PageId pageId, boolean valDirty) {
+		for(Frame frame : this.bufferPool) {
+			if(frame.pageId == pageId) {
+				frame.pinCount--;
+				frame.flagDirty = valDirty;
+			}
+		}
 	}
-
 }

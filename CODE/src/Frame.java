@@ -3,10 +3,10 @@
 public class Frame {
     private PageId pageId;
     private int pinCount;
-    private byte flagDirty;
+    private boolean flagDirty;
 
     // Constructur of the Frame class
-    public void Frame(PageId pageId, int pinCount, byte flagDirty) {
+    public void Frame(PageId pageId, int pinCount, boolean flagDirty) {
         this.pageId = pageId;
         this.pinCount = pinCount;
         this.flagDirty = flagDirty;
@@ -23,7 +23,7 @@ public class Frame {
     }
 
     // Getter of the flagDirty property
-    public byte getFlagDirty(){
+    public boolean getFlagDirty(){
         return this.FlagDirty;
     }
 
@@ -38,7 +38,7 @@ public class Frame {
     }
 
     // Setter of the flagDirty property
-    public void flagDirty(byte flagDirty) {
+    public void flagDirty(boolean flagDirty) {
         this.flagDirty = flagDirty;
     }
 
