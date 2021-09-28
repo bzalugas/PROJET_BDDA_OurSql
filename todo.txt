@@ -1,7 +1,5 @@
 U : Urgent ; O : Obligatoire mais pas urgent ; Af : Pas obligatoire, mais à faire ; Opt : optionnel
 
-U -  restauration du Registry
-
 Af - Implémenter deallocPage()
 
 Af - Toutes les gestions d'exceptions (créer des classes pour les exceptions non existantes qui pourraient survenir)
