@@ -56,6 +56,12 @@ public class Frame {
          this.buffer = buffer;
     }
 
+    public boolean isEmpty(){
+        if (pageId.getFileIdx == -1)
+            return (true);
+        return (false);
+    }
+
     public String toString() {
         return ("PageId : " + pageId + ", pinCount = " + pinCount + ", dirty : " + flagDirty);
     }
