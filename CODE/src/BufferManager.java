@@ -6,7 +6,7 @@ import java.io.IOException;
 
 
 public class BufferManager{
-	private ArrayList<Frame> bufferPool;
+	private Frame[] bufferPool = new Frame[DBParams.frameCount];
 	private DiskManager dmanager = DiskManager.getInstance();
 
 	public BufferManager(){
