@@ -6,4 +6,4 @@ U - Ecrire la classe de tests BufferManager
 
 U - Ecrire getPage() (Kevin) | Ecrire freePage() (Pierre) | FlushAll() (On verra)
 
-U - Faire un add propre dans BufferManager (verifie si une frame est deja dans la liste, et tej celle avec le pincount le plus bas)
+U - MRU dans getPage()

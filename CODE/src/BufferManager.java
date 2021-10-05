@@ -31,10 +31,11 @@ public class BufferManager{
 
 	public void freePage(PageId pageId, boolean valDirty) {
 		for(Frame frame : this.bufferPool){
-			if(frame.getPageId() == pageId) {
+			if(frame.getPageId().equals(pageId)) {
 				frame.setPinCount(frame.getPinCount()-1);
 				frame.setFlagDirty(valDirty);
 			}
+			//Ajouter a la stack si pinCount == 0
 		}
 	}
 
