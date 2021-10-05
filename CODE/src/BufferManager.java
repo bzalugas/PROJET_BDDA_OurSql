@@ -6,11 +6,21 @@ import java.io.IOException;
 import java.io.Stack;
 
 public class BufferManager{
-	private Frame [] bufferPool = new Frame[DBParams.frameCount];
-	private DiskManager dmanager = DiskManager.getInstance();
+	private static instance = null;
+	private Frame[] bufferPool;
+	private DiskManager dmanager;
 
-	public BufferManager(){
+	//Private constructor because BufferManage is Singleton
+	private BufferManager(){
+		this.bufferPool = new Frame[DBParams.frameCount];
+		this.dmanager = DiskManager.getInstance();
+	}
 
+	//Method to get instance
+	public static final BufferManager getInstance() {
+		if (instance == null)
+			instance = new BufferManager();
+		return instance;
 	}
 
 	public void freePage(PageId pageId, boolean valDirty) {
