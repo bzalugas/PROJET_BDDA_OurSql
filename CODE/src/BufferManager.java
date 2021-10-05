@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.nio.ByteBuffer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.io.Stack;
 
 public class BufferManager{
-	private Frame[] bufferPool = new Frame[DBParams.frameCount];
+	private Frame [] bufferPool = new Frame[DBParams.frameCount];
 	private DiskManager dmanager = DiskManager.getInstance();
 
 	public BufferManager(){
@@ -23,12 +23,19 @@ public class BufferManager{
 	}
 
 	public ByteBuffer getPage(PageId pageId) throws FileNotFoundException, IOException {
-		 ByteBuffer buff =  ByteBuffer.allocate(DBParams.pageSize);
-		 dmanager.readPage(pageId,buff);
+		for(Frame frame : this.bufferPool){
+			if(frame.getPageId().equals(pageId)){
+				f.getBuffer
 
-		 Frame f = new Frame(pageId,buff);
-		 f.setPinCount(f.getPinCount()+1);
+			} else {
+				ByteBuffer buff =  ByteBuffer.allocate(DBParams.pageSize);
+				dmanager.readPage(pageId,buff);
 
+				Frame f = new Frame(pageId,buff);
+				f.setPinCount(f.getPinCount()+1)
+				this.bufferPool.add(f);
+			}
+		}
 		 return buff;
 	}
 
