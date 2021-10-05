@@ -9,11 +9,13 @@ public class BufferManager{
 	private static BufferManager instance = null;
 	private Frame[] bufferPool;
 	private DiskManager dmanager;
+	private Stack unusedFrames;
 
 	//Private constructor because BufferManage is Singleton
 	private BufferManager(){
 		this.bufferPool = new Frame[DBParams.frameCount];
 		this.dmanager = DiskManager.getInstance();
+		this.unusedFrames = new Stack();
 		initBufferPool();
 	}
 
@@ -30,13 +32,16 @@ public class BufferManager{
 	}
 
 	public void freePage(PageId pageId, boolean valDirty) {
-		for(Frame frame : this.bufferPool){
-			if(frame.getPageId().equals(pageId)) {
-				frame.setPinCount(frame.getPinCount()-1);
-				frame.setFlagDirty(valDirty);
-			}
-			//Ajouter a la stack si pinCount == 0
-		}
+		int i = 0;
+
+		while (bufferPool[i].getPageId().equals(pageId) == false)
+			i++;
+		bufferPool[i].setPinCount(bufferPool[i].getPinCount() - 1);
+		bufferPool[i].setFlagDirty(valDirty);
+
+		//If pinCount == 0, this is the most recently used
+		if (buffer[i].getPinCount() == 0)
+			unusedFrames.push(bufferPool[i]);
 	}
 
 	private int getFreeFrameId() {
@@ -64,7 +69,7 @@ public class BufferManager{
 		}
 		else
 		{
-			//Politique MRU
+			//Politique MRU => ne pas oublier de save si dirty == 1
 		}
 
 		return (bufferPool[i].getBuffer());
