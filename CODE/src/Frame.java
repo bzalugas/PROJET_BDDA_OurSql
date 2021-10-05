@@ -4,14 +4,16 @@ import java.nio.ByteBuffer;
 
 public class Frame {
     private PageId pageId;
-    private int pinCount = 0;
-    private boolean flagDirty = false;
+    private int pinCount;
+    private boolean flagDirty;
     private ByteBuffer buffer;
 
-    // Constructur of the Frame class
-    public Frame(PageId pageId, ByteBuffer buffer) {
-        this.pageId = pageId;
-        this.buffer = buffer;
+    // Constructor of the Frame class
+    public Frame() {
+        pageId = new PageId(-1, 0);
+        pinCount = 0;
+        flagDirty = false;
+        buffer = ByteBuffer.allocate(DBParams.pageSize);
     }
 
     // Getter of the pageId property
@@ -52,6 +54,10 @@ public class Frame {
     // Setter of the buffer property
     public void setBuffer(ByteBuffer buffer){
          this.buffer = buffer;
+    }
+
+    public String toString() {
+        return ("PageId : " + pageId + ", pinCount = " + pinCount + ", dirty : " + flagDirty);
     }
 
 }

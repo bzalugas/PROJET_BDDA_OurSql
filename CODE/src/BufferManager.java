@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.nio.ByteBuffer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Stack;
+import java.util.Stack;
 
 public class BufferManager{
-	private static instance = null;
+	private static BufferManager instance = null;
 	private Frame[] bufferPool;
 	private DiskManager dmanager;
 
@@ -14,6 +14,12 @@ public class BufferManager{
 	private BufferManager(){
 		this.bufferPool = new Frame[DBParams.frameCount];
 		this.dmanager = DiskManager.getInstance();
+		initBufferPool();
+	}
+
+	private void initBufferPool() {
+		for (int i = 0; i < bufferPool.length; i++)
+			bufferPool[i] = new Frame();
 	}
 
 	//Method to get instance
@@ -32,21 +38,35 @@ public class BufferManager{
 		}
 	}
 
+	private int getFreeFrameId() {
+		for (int i = 0; i < bufferPool.length; i++)
+			if (bufferPool[i].getPageId().getFileIdx() == -1)
+				return (i);
+		return (-1);
+	}
+
 	public ByteBuffer getPage(PageId pageId) throws FileNotFoundException, IOException {
-		for(Frame frame : this.bufferPool){
-			if(frame.getPageId().equals(pageId)){
-				f.getBuffer
+		int i;
 
-			} else {
-				ByteBuffer buff =  ByteBuffer.allocate(DBParams.pageSize);
-				dmanager.readPage(pageId,buff);
-
-				Frame f = new Frame(pageId,buff);
-				f.setPinCount(f.getPinCount()+1)
-				this.bufferPool.add(f);
+		for (Frame f : bufferPool){
+			if (f.getPageId().equals(pageId)){
+				f.setPinCount(f.getPinCount() + 1);
+				return (f.getBuffer());
 			}
 		}
-		 return buff;
+		if ((i = getFreeFrameId()) != -1)
+		{
+			bufferPool[i].setPageId(pageId);
+			bufferPool[i].setPinCount(1);
+			bufferPool[i].setFlagDirty(false);
+			dmanager.readPage(pageId, bufferPool[i].getBuffer());
+		}
+		else
+		{
+			//Politique MRU
+		}
+
+		return (bufferPool[i].getBuffer());
 	}
 
 	// Method that write all pages and reset all properties of all the frames.
