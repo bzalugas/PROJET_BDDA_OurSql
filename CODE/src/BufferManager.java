@@ -44,34 +44,54 @@ public class BufferManager{
 			unusedFrames.push(bufferPool[i]);
 	}
 
-	private int getFreeFrameId() {
-		for (int i = 0; i < bufferPool.length; i++)
-			if (bufferPool[i].getPageId().getFileIdx() == -1)
-				return (i);
-		return (-1);
-	}
+	//No need anymore, we check that directly in getPage
+	// private int getFreeFrameId() {
+	// 	for (int i = 0; i < bufferPool.length; i++)
+	// 		if (bufferPool[i].getPageId().getFileIdx() == -1)
+	// 			return (i);
+	// 	return (-1);
+	// }
 
 	public ByteBuffer getPage(PageId pageId) throws FileNotFoundException, IOException {
-		int i;
+		int idx = -1; //idx in which is saved the first free frame
 
-		for (Frame f : bufferPool){
-			if (f.getPageId().equals(pageId)){
-				f.setPinCount(f.getPinCount() + 1);
-				return (f.getBuffer());
-			}
-		}
-		if ((i = getFreeFrameId()) != -1)
+		//Check if pageId already in bufferPool
+		for (int i = 0; i < bufferPool.length; i++)
 		{
+			if (bufferPoolp[i].getPageId().equals(pageId))
+			{
+				bufferPool[i].setPinCount(bufferPool[i].getPinCount() + 1);
+				return (bufferPool[i].getBuffer());
+			}
+			else if (bufferPool[i].isEmpty() && idx == -1)
+				idx = i;
+		}
+		//if not, check if there is an empty frame
+		if (idx != -1)
+		{
+			bufferPool[idx].setPageId(pageId);
+			bufferPool[idx].setPinCount(1);
+			bufferPool[idx].setFlagDirty(false);
+			dmanager.readPage(pageId, bufferPool[idx].getBuffer());
+		}
+		else
+		{
+			//Politique MRU => ne pas oublier de save si dirty == 1
+			// => Exception a creer si stack est vide
+			Frame old = unusedFrames.pop();
+			//Check dirty : if true, save
+			if (old.getFlagDirty() == true)
+				dmanager.writePage(old.getPageId(), old.getBuffer());
+			//search the frame in bufferPool to replace it
+			int i = 0;
+			while (i < bufferPool.length && !bufferPool[i].equals(old))
+				i++;
+			//Replace old frame by new frame
 			bufferPool[i].setPageId(pageId);
 			bufferPool[i].setPinCount(1);
 			bufferPool[i].setFlagDirty(false);
 			dmanager.readPage(pageId, bufferPool[i].getBuffer());
 		}
-		else
-		{
-			//Politique MRU => ne pas oublier de save si dirty == 1
-		}
-
 		return (bufferPool[i].getBuffer());
 	}
 
