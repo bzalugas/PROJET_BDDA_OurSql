@@ -8,17 +8,27 @@ public class DiskManagerTests
 		DBParams.DBPath = path;
 		DBParams.pageSize = 10;
 		DBParams.maxPagesPerFile = 4;
-		DiskManager dm = DiskManager.getInstance();
-		ArrayList<PageId> pages = new ArrayList<PageId>(30);
+
 		final int TOT_PAGES = 30;
+
+		DiskManager dm = DiskManager.getInstance();
+		ArrayList<PageId> pages = new ArrayList<PageId>(TOT_PAGES);
+
+		System.out.println("TestAllocPage");
+		System.out.println("Path = " + DBParams.path);
+		System.out.println("pageSize = " + DBParams.pageSize);
+		System.out.println("maxPagesPerFile = " + DBParams.maxPagesPerFile);
+
 		try {
+			System.out.println("Allocation of " + TOT_PAGES + " pages : ");
 			for (int i = 0; i < TOT_PAGES; i++)
 			{
 				pages.add(dm.AllocPage());
-				ByteBuffer buf = ByteBuffer.allocate(DBParams.pageSize);
-				buf.putChar('T').putChar('E').putChar('S').putChar('T');
-				dm.writePage(pages.get(i), buf);
 				System.out.println("Allocated Page : " + pages.get(i).toString());
+
+				ByteBuffer buf = ByteBuffer.allocate(DBParams.pageSize);
+				buf.putChar('B').putChar('O').putChar('N').putChar('J').putChar('O').putChar('U').putChar('R');
+				dm.writePage(pages.get(i), buf);
 				System.out.println("Wrote : " + Arrays.toString(buf.array()));
 			}
 			for (int i = 0; i < TOT_PAGES; i++)
