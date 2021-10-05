@@ -7,7 +7,7 @@ public class Catalog{
     private ArrayList<RelationInfo> listRelationInfo;
 
     private Catalog(){
-        Init()
+        Init();
     }
 
     public static final Catalog getInstance(){
