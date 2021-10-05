@@ -56,6 +56,10 @@ public class Frame {
          this.buffer = buffer;
     }
 
+    public boolean equals(Frame f) {
+        return (this.pageId.equals(f.getPageId()));
+    }
+
     public boolean isEmpty(){
         if (pageId.getFileIdx == -1)
             return (true);
