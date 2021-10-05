@@ -50,7 +50,7 @@ public class Frame {
     }
 
     // Setter of the buffer property
-    public ByteBuffer setBuffer(ByteBuffer buffer){
+    public void setBuffer(ByteBuffer buffer){
          this.buffer = buffer;
     }
 
