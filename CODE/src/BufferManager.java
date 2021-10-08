@@ -1,10 +1,12 @@
-//Class to manage frames
 import java.util.ArrayList;
 import java.nio.ByteBuffer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Stack;
 
+/**
+ * Class to manage frames
+ */
 public class BufferManager
 {
 	private static BufferManager instance = null;
