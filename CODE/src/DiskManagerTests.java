@@ -4,7 +4,8 @@ import java.util.Arrays;
 
 public class DiskManagerTests
 {
-	public static void testAllocPage(String path){
+	public static void testAllocPage(String path)
+	{
 		DBParams.DBPath = path;
 		DBParams.pageSize = 10;
 		DBParams.maxPagesPerFile = 4;
@@ -19,7 +20,8 @@ public class DiskManagerTests
 		System.out.println("pageSize = " + DBParams.pageSize);
 		System.out.println("maxPagesPerFile = " + DBParams.maxPagesPerFile);
 
-		try {
+		try
+		{
 			System.out.println("Allocation of " + TOT_PAGES + " pages : ");
 			for (int i = 0; i < TOT_PAGES; i++)
 			{
@@ -50,7 +52,8 @@ public class DiskManagerTests
 		}
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args)
+	{
 		String path = args[0];
 		testAllocPage(path);
 	}

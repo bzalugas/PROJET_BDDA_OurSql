@@ -17,13 +17,15 @@ public class DiskManager
     }
 
     //getter for instance
-    public static final DiskManager getInstance(){
+    public static final DiskManager getInstance()
+    {
         if (instance == null)
             instance = new DiskManager();
         return instance;
     }
 
-    public PageId AllocPage() throws IOException {
+    public PageId AllocPage() throws IOException
+    {
         int[] page = reg.pageAvailable();
         if (page[0] == -1)
         {
@@ -42,11 +44,13 @@ public class DiskManager
     }
     
     //The pagesStatus of the page is initialised to 0
-    public void deallocPage(PageId pi){
-          reg.setFreePage(pi);
+    public void deallocPage(PageId pi)
+    {
+        reg.setFreePage(pi);
     }
 
-    public void readPage(PageId pi, ByteBuffer buf) throws FileNotFoundException, IOException {
+    public void readPage(PageId pi, ByteBuffer buf) throws FileNotFoundException, IOException
+    {
         int start = pi.getPageIdx() * DBParams.pageSize;
         String pathFile = DBParams.DBPath + "/F" + Integer.toString(pi.getFileIdx()) + ".df";
         RandomAccessFile file = new RandomAccessFile(pathFile, "r");
@@ -63,7 +67,8 @@ public class DiskManager
         file.close();
     }
 
-    public void writePage(PageId pi, ByteBuffer buf) throws FileNotFoundException, IOException {
+    public void writePage(PageId pi, ByteBuffer buf) throws FileNotFoundException, IOException
+    {
         int start = pi.getPageIdx() * DBParams.pageSize;
         String pathFile = DBParams.DBPath + "/F" + Integer.toString(pi.getFileIdx()) + ".df";
         RandomAccessFile file = new RandomAccessFile(pathFile, "rw");
@@ -76,6 +81,4 @@ public class DiskManager
                 file.writeByte(buf.get(i)); //maybe need to use file.write ??
         file.close();
     }
-
-
 }

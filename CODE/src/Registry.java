@@ -8,7 +8,8 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class Registry implements Serializable {
+public class Registry implements Serializable
+{
 
     private static Registry instance = null;
     private ArrayList<DataFile> files = new ArrayList<DataFile>();
@@ -19,35 +20,41 @@ public class Registry implements Serializable {
 
     }
 
-    public static final Registry getInstance(){
+    public static final Registry getInstance()
+    {
         if (instance == null)
             instance = new Registry();
         return instance;
     }
 
     //method to add new DataFile in the list
-    public void newFile(String filePath){
+    public void newFile(String filePath)
+    {
         files.add(new DataFile(++lastFileIndex, filePath));
     }
 
     //Method to save the Registry instance.
-    public void save () throws IOException{
-            this.file  = new File("./DB/registry.reg");
+    public void save () throws IOException
+    {
+        this.file  = new File("./DB/registry.reg");
 
-            FileOutputStream fileOut = new FileOutputStream(this.file);
-            ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+        FileOutputStream fileOut = new FileOutputStream(this.file);
+        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
 
-            objOut.writeObject(this);
-            objOut.flush();
-            objOut.close();
-            fileOut.close();
+        objOut.writeObject(this);
+        objOut.flush();
+        objOut.close();
+        fileOut.close();
 
     }
 
     // Method that retrieve an instance of Registry from a file.
-    static Registry retrieve(File file) throws IOException {
-        if(file.exists()){
-            try {
+    static Registry retrieve(File file) throws IOException
+    {
+        if(file.exists())
+        {
+            try
+            {
                 FileInputStream fin = new FileInputStream(file);
                 ObjectInputStream oin = new ObjectInputStream(fin);
 
@@ -58,17 +65,21 @@ public class Registry implements Serializable {
 
                 return reg;
 
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 System.out.println("IOException : " + e);
-            } catch (ClassNotFoundException e) {
+            }
+            catch (ClassNotFoundException e)
+            {
                 System.out.println("ClassNotFoundException : " + e);
             }
         }
-    return null;    
-    
+        return null;
     }
 
-    public int[] pageAvailable() {
+    public int[] pageAvailable()
+    {
         int [] page = {-1, -1};
 
         for (DataFile file : files)
@@ -81,15 +92,18 @@ public class Registry implements Serializable {
         return (page);
     }
 
-    public void setUsedPage(PageId page){
+    public void setUsedPage(PageId page)
+    {
         files.get(page.getFileIdx()).setUsedPage(page.getPageIdx());
     }
 
-    public void setFreePage(PageId page){
+    public void setFreePage(PageId page)
+    {
         files.get(page.getFileIdx()).setFreePage(page.getPageIdx());
     }
 
-    public int getLastFileIndex(){
+    public int getLastFileIndex()
+    {
         return (lastFileIndex);
     }
 }

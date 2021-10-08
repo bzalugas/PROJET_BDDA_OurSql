@@ -5,33 +5,38 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Stack;
 
-public class BufferManager{
+public class BufferManager
+{
 	private static BufferManager instance = null;
 	private Frame[] bufferPool;
 	private DiskManager dmanager;
 	private Stack unusedFrames;
 
 	//Private constructor because BufferManage is Singleton
-	private BufferManager(){
+	private BufferManager()
+	{
 		this.bufferPool = new Frame[DBParams.frameCount];
 		this.dmanager = DiskManager.getInstance();
 		this.unusedFrames = new Stack();
 		initBufferPool();
 	}
 
-	private void initBufferPool() {
+	private void initBufferPool()
+	{
 		for (int i = 0; i < bufferPool.length; i++)
 			bufferPool[i] = new Frame();
 	}
 
 	//Method to get instance
-	public static final BufferManager getInstance() {
+	public static final BufferManager getInstance()
+	{
 		if (instance == null)
 			instance = new BufferManager();
 		return instance;
 	}
 
-	public void freePage(PageId pageId, boolean valDirty) {
+	public void freePage(PageId pageId, boolean valDirty)
+	{
 		int i = 0;
 
 		while (bufferPool[i].getPageId().equals(pageId) == false)
@@ -52,7 +57,8 @@ public class BufferManager{
 	// 	return (-1);
 	// }
 
-	public ByteBuffer getPage(PageId pageId) throws FileNotFoundException, IOException {
+	public ByteBuffer getPage(PageId pageId) throws FileNotFoundException, IOException
+	{
 		int idx = -1; //idx in which is saved the first free frame
 
 		//Check if pageId already in bufferPool
@@ -96,8 +102,10 @@ public class BufferManager{
 	}
 
 	// Method that write all pages and reset all properties of all the frames.
-	public void flushAll() throws FileNotFoundException, IOException {
-		for(Frame frame : this.bufferPool){
+	public void flushAll() throws FileNotFoundException, IOException
+	{
+		for(Frame frame : this.bufferPool)
+		{
 			if(frame.getFlagDirty())
 				this.dmanager.writePage(frame.getPageId(), frame.getBuffer());
 				

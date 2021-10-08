@@ -8,7 +8,8 @@ public class DataFile
     private String filePath = null;
     private int fileIndex = -1;
 
-    public DataFile(int fileIndex, String filePath){
+    public DataFile(int fileIndex, String filePath)
+    {
         pagesStatus = new byte[DBParams.maxPagesPerFile];
         this.fileIndex = fileIndex;
         this.filePath = filePath;
@@ -16,37 +17,44 @@ public class DataFile
     }
 
     //Initiate the byte array to 0
-    private void init(){
+    private void init()
+    {
         if (pagesStatus != null)
             for (int i = 0; i < DBParams.maxPagesPerFile; i++)
                 pagesStatus[i] = 0;
     }
 
     //return the index of first available page in file, or -1 if there is not
-    public int pageAvailable(){
+    public int pageAvailable()
+    {
         for (int i = 0; i < DBParams.maxPagesPerFile; i++)
             if (pagesStatus[i] == 0)
                 return (i);
         return (-1);
     }
 
-    public int getFileIndex(){
+    public int getFileIndex()
+    {
         return (fileIndex);
     }
 
-    public String getFilePath(){
+    public String getFilePath()
+    {
         return (filePath);
     }
 
-    public void setUsedPage(int pageIdx){
+    public void setUsedPage(int pageIdx)
+    {
         pagesStatus[pageIdx] = 1;
     }
 
-    public void setFreePage(int pageIdx){
+    public void setFreePage(int pageIdx)
+    {
         pagesStatus[pageIdx] = 0;
     }
 
-    public String toString(){
+    public String toString()
+    {
         return ("File index : " + fileIndex + ", pages : " + Arrays.toString(pagesStatus));
     }
 }
