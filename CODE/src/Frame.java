@@ -83,7 +83,7 @@ public class Frame
 
     public boolean isEmpty()
     {
-        if (pageId.getFileIdx == -1)
+        if (pageId.getFileIdx() == -1)
             return (true);
         return (false);
     }
