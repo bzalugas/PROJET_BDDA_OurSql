@@ -37,28 +37,6 @@ public class BufferManager
 		return instance;
 	}
 
-	public void freePage(PageId pageId, boolean valDirty)
-	{
-		int i = 0;
-
-		while (bufferPool[i].getPageId().equals(pageId) == false)
-			i++;
-		bufferPool[i].setPinCount(bufferPool[i].getPinCount() - 1);
-		bufferPool[i].setFlagDirty(valDirty);
-
-		//If pinCount == 0, this is the most recently used
-		if (buffer[i].getPinCount() == 0)
-			unusedFrames.push(bufferPool[i]);
-	}
-
-	//No need anymore, we check that directly in getPage
-	// private int getFreeFrameId() {
-	// 	for (int i = 0; i < bufferPool.length; i++)
-	// 		if (bufferPool[i].getPageId().getFileIdx() == -1)
-	// 			return (i);
-	// 	return (-1);
-	// }
-
 	public ByteBuffer getPage(PageId pageId) throws FileNotFoundException, IOException
 	{
 		int idx = -1; //idx of the first free frame (in order to visit the buffer pool only one time)
@@ -102,6 +80,23 @@ public class BufferManager
 			dmanager.readPage(pageId, bufferPool[i].getBuffer());
 		}
 		return (bufferPool[i].getBuffer());
+	}
+
+	public void freePage(PageId pageId, boolean valDirty)
+	{
+		int i = 0;
+
+		while (bufferPool[i].getPageId().equals(pageId) == false)
+			i++;
+		//bufferPool[i].setPinCount(bufferPool[i].getPinCount() - 1);
+
+		//FAUT-IL CONSIDERER LE CAS OU ON REND DEUX FOIS LA MEME PAGE (PIN_COUNT < 0) ?
+		bufferPool[i].decrementPinCount();
+		bufferPool[i].setFlagDirty(valDirty);
+
+		//If pinCount == 0, this is the most recently used
+		if (buffer[i].getPinCount() == 0)
+			unusedFrames.push(bufferPool[i]);
 	}
 
 	// Method that write all pages and reset all properties of all the frames.
