@@ -107,7 +107,7 @@ public class BufferManager
 			if(frame.getFlagDirty())
 				this.dmanager.writePage(frame.getPageId(), frame.getBuffer());
 				
-			frame.setPageId(null);
+			frame.setPageId(null); //Frame libre => pid = null ou pid = (-1,0) ??
 			frame.setPinCount(0);
 			frame.setFlagDirty(false);
 		}
