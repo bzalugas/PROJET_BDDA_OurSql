@@ -61,7 +61,7 @@ public class BufferManager
 
 	public ByteBuffer getPage(PageId pageId) throws FileNotFoundException, IOException
 	{
-		int idx = -1; //idx in which is saved the first free frame
+		int idx = -1; //idx of the first free frame (in order to visit the buffer pool only one time)
 
 		//Check if pageId already in bufferPool
 		for (int i = 0; i < bufferPool.length; i++)
