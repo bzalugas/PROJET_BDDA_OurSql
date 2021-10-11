@@ -24,7 +24,7 @@ public class Registry implements Serializable
     }
 
     //Method to get instance of Registry (get instance from file if it was already saved)
-    public static final Registry getInstance() throws IOException, ClassNotFoundException
+    public static final Registry getInstance()
     {
         if (instance == null)
         {
@@ -45,11 +45,11 @@ public class Registry implements Serializable
             }
             catch (IOException e)
             {
-                System.out.println("IOException in getInstance" + e.getMessage());
+                System.out.println("IOException in Registry.getInstance" + e.getMessage());
             }
             catch (ClassNotFoundException e)
             {
-                System.out.println("ClassNotFoundException in getInstance" + e.getMessage());
+                System.out.println("ClassNotFoundException in Registry.getInstance" + e.getMessage());
             }
 
         }
@@ -63,17 +63,23 @@ public class Registry implements Serializable
     }
 
     //Method to save the Registry instance.
-    public void save () throws IOException
+    public void save ()
     {
-        File f  = new File(regPath);
+        try
+        {
+            File f  = new File(regPath);
+            FileOutputStream fileOut = new FileOutputStream(f);
+            ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
+            objOut.writeObject(this);
+            objOut.flush();
+            objOut.close();
+            fileOut.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("IOException in Registry.save : " + e.getMessage());
+        }
 
-        FileOutputStream fileOut = new FileOutputStream(f);
-        ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
-
-        objOut.writeObject(this);
-        objOut.flush();
-        objOut.close();
-        fileOut.close();
     }
 
     public int[] pageAvailable()
