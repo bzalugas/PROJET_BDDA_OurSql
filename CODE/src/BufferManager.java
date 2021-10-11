@@ -72,10 +72,10 @@ public class BufferManager
 				bufferPool[i].incrementPinCount();
 				return (bufferPool[i].getBuffer());
 			}
-			else if (bufferPool[i].isEmpty() && idx == -1)
+			else if (idx == -1 && bufferPool[i].isEmpty())
 				idx = i;
 		}
-		//if not, check if there is an empty frame
+		//if not, check if there is an empty frame (idx != -1 means the first loop found a free frame)
 		if (idx != -1)
 		{
 			bufferPool[idx].setPageId(pageId);
