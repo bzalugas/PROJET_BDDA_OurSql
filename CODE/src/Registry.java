@@ -7,23 +7,52 @@ import java.io.ObjectOutputStream;
 import java.io.File;
 import java.io.IOException;
 
-
+@SuppressWarnings("serial")
 public class Registry implements Serializable
 {
 
     private static Registry instance = null;
-    private ArrayList<DataFile> files = new ArrayList<DataFile>();
-    private int lastFileIndex = -1;
-    private File file;
+    private ArrayList<DataFile> files;
+    private int lastFileIndex;
+    private String regPath;
     
-    private Registry(){
-
+    private Registry(String regPath)
+    {
+        this.regPath = regPath;
+        this.files = new ArrayList<DataFile>();
+        this.lastFileIndex = -1;
     }
 
-    public static final Registry getInstance()
+    //Method to get instance of Registry (get instance from file if it was already saved)
+    public static final Registry getInstance() throws IOException, ClassNotFoundException
     {
         if (instance == null)
-            instance = new Registry();
+        {
+            String path = DBParams.DBPath + "registry.reg";
+            try
+            {
+                File f = new File(path);
+                if (!f.exists())
+                    instance = new Registry(path);
+                else
+                {
+                    FileInputStream fin = new FileInputStream(f);
+                    ObjectInputStream oin = new ObjectInputStream(fin);
+                    instance = (Registry)oin.readObject();
+                    oin.close();
+                    fin.close();
+                }
+            }
+            catch (IOException e)
+            {
+                System.out.println("IOException in getInstance" + e.getMessage());
+            }
+            catch (ClassNotFoundException e)
+            {
+                System.out.println("ClassNotFoundException in getInstance" + e.getMessage());
+            }
+
+        }
         return instance;
     }
 
@@ -36,46 +65,15 @@ public class Registry implements Serializable
     //Method to save the Registry instance.
     public void save () throws IOException
     {
-        this.file  = new File("./DB/registry.reg");
+        File f  = new File(regPath);
 
-        FileOutputStream fileOut = new FileOutputStream(this.file);
+        FileOutputStream fileOut = new FileOutputStream(f);
         ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
 
         objOut.writeObject(this);
         objOut.flush();
         objOut.close();
         fileOut.close();
-
-    }
-
-    // Method that retrieve an instance of Registry from a file.
-    static Registry retrieve(File file) throws IOException
-    {
-        if(file.exists())
-        {
-            try
-            {
-                FileInputStream fin = new FileInputStream(file);
-                ObjectInputStream oin = new ObjectInputStream(fin);
-
-                Registry reg = (Registry)oin.readObject();
-
-                oin.close();
-                fin.close();
-
-                return reg;
-
-            }
-            catch (IOException e)
-            {
-                System.out.println("IOException : " + e);
-            }
-            catch (ClassNotFoundException e)
-            {
-                System.out.println("ClassNotFoundException : " + e);
-            }
-        }
-        return null;
     }
 
     public int[] pageAvailable()

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class DiskManagerTests
 {
+
 	public static void testAllocPage(String path)
 	{
 		DBParams.DBPath = path;
@@ -16,7 +17,7 @@ public class DiskManagerTests
 		ArrayList<PageId> pages = new ArrayList<PageId>(TOT_PAGES);
 
 		System.out.println("TestAllocPage");
-		System.out.println("Path = " + DBParams.path);
+		System.out.println("Path = " + DBParams.DBPath);
 		System.out.println("pageSize = " + DBParams.pageSize);
 		System.out.println("maxPagesPerFile = " + DBParams.maxPagesPerFile);
 
@@ -47,9 +48,16 @@ public class DiskManagerTests
 				dm.readPage(pages.get(i), buf);
 				System.out.println("read " + pages.get(i) + " : " + Arrays.toString(buf.array()));
 			}
-		} catch (Exception e){
+		}
+		catch (Exception e)
+		{
 			System.out.println("Error : " + e.getMessage());
 		}
+	}
+
+	public static void testDeallocPage()
+	{
+
 	}
 
 	public static void main(String[] args)
