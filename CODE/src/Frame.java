@@ -66,6 +66,16 @@ public class Frame
         this.buffer = buffer;
     }
 
+    public void incrementPinCount()
+    {
+        this.pinCount++;
+    }
+
+    public void decrementPinCount()
+    {
+        this.pinCount--;
+    }
+
     public boolean equals(Frame f)
     {
         return (this.pageId.equals(f.getPageId()));

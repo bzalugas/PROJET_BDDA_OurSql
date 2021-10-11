@@ -68,7 +68,8 @@ public class BufferManager
 		{
 			if (bufferPoolp[i].getPageId().equals(pageId))
 			{
-				bufferPool[i].setPinCount(bufferPool[i].getPinCount() + 1);
+				//bufferPool[i].setPinCount(bufferPool[i].getPinCount() + 1);
+				bufferPool[i].incrementPinCount();
 				return (bufferPool[i].getBuffer());
 			}
 			else if (bufferPool[i].isEmpty() && idx == -1)
