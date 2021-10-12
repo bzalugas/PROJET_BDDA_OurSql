@@ -1,3 +1,4 @@
+
 public class RelationInfo
 {
     
@@ -5,13 +6,19 @@ public class RelationInfo
     private int columnNumber;
     private String[] columnName;
     private String[] columnType;
+    private PageId headerPageId;
+    private int recordSize;
+    private int slotCount;
 
-    public RelationInfo(String relationName, int columnNumber)
+    public RelationInfo(String relationName, int columnNumber, PageId headerPageId)
     {
         this.relationName = relationName;
         this.columnNumber = columnNumber;
         this.columnName = new String[columnNumber];
         this.columnType =  new String[columnNumber];
+        this.headerPageId = headerPageId;
+
+
     }
 
     public String getRelationName()
@@ -54,4 +61,10 @@ public class RelationInfo
     {
         this.columnType[i] = columnType;
     }
+
+    public void listColumnType(){
+        
+    }
+    
+
 }
