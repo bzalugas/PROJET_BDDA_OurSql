@@ -34,6 +34,16 @@ public class Catalog
     {
         this.listRelationInfo.add(relationInfo);
     }
+    public void supRelation(String nomRelation)
+    {   
+        int i = -1;
+        for(RelationInfo inf : this.listRelationInfo) {
+             i++;
+             if(nomRelation.equals(inf.getRelationName())){
+                listRelationInfo.remove(i);
+             }
+        }
+    }
 
     public ArrayList<RelationInfo> getListRelationInfo()
     {
@@ -45,13 +55,5 @@ public class Catalog
         this.listRelationInfo = listRelationInfo;
     }
 
-    public int getRelationCount()
-    {
-        return this.relationCount;
-    }
-
-    public void setRelationCount(int relationCount)
-    {
-        this.relationCount = relationCount;
-    }
+ 
 }
