@@ -15,6 +15,7 @@ public class Record
 
     public void writeToBuffer(ByteBuffer buff, int index)
     {
+        buff.position(index);
         for(String value : this.values)
         {
             for(String type : this.relInfo.columnType)
@@ -22,10 +23,18 @@ public class Record
                 switch(type)
                 {
                     case "int":
+                        int outType = Integer.valueOf(value);
+                        buff.putInt(outType);
                         break;
                     case "float":
+                        float outType = Float.valueOf(value);
+                        buff.putFloat(outType);
                         break;
                     default:
+                        int len = value.length();
+                        for (int i = 0; i < len; i++)
+                            buf.putChar(value.charAt(i));
+            
                         break;
                 }
             }
