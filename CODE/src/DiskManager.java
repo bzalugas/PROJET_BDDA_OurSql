@@ -10,10 +10,11 @@ public class DiskManager
     //Single instance of DiskManager
     private static DiskManager instance = null;
     //registry of pages (singleton)
-    private Registry reg = Registry.getInstance();
+    private Registry reg;
 
-    private DiskManager(){
-        //Private constructor to avoid default
+    private DiskManager()
+    {
+        reg = Registry.getInstance();
     }
 
     //getter for instance
@@ -80,5 +81,20 @@ public class DiskManager
             for (int i = 0; i < DBParams.pageSize; i++)
                 file.writeByte(buf.get(i)); //maybe need to use file.write ??
         file.close();
+    }
+
+    public void cleanupFiles()
+    {
+        int i = reg.getLastFileIndex();
+        String pathFile;
+        File f;
+        while (i >= 0)
+        {
+            pathFile = DBParams.DBPath + "/F" + Integer.toString(i) + ".df";
+            f = new File(pathFile);
+            if (f.exists())
+                f.delete();
+            i--;
+        }
     }
 }

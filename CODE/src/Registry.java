@@ -96,6 +96,15 @@ public class Registry implements Serializable
         return (page);
     }
 
+    public void cleanAll()
+    {
+        this.files = null;
+        this.lastFileIndex = -1;
+        File f = new File(regPath);
+        if (f.exists())
+            f.delete();
+    }
+
     public void setUsedPage(PageId page)
     {
         files.get(page.getFileIdx()).setUsedPage(page.getPageIdx());

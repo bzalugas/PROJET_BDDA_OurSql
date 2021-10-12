@@ -3,6 +3,7 @@ import java.nio.ByteBuffer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Stack;
+import exceptions.*;
 
 /**
  * Class to manage frames
@@ -82,15 +83,16 @@ public class BufferManager
 		return (bufferPool[idx].getBuffer());
 	}
 
-	public void freePage(PageId pageId, boolean valDirty)
+	public void freePage(PageId pageId, boolean valDirty) throws TooManyFreePageException
 	{
 		int i = 0;
 
-		while (bufferPool[i].getPageId().equals(pageId) == false)
+		while (bufferPool[i].equals(pageId) == false)
 			i++;
 		//bufferPool[i].setPinCount(bufferPool[i].getPinCount() - 1);
 
-		//FAUT-IL CONSIDERER LE CAS OU ON REND DEUX FOIS LA MEME PAGE (PIN_COUNT < 0) ?
+		if (bufferPool[i].getPinCount() == 0)
+			throw (new TooManyFreePageException("Too many freePage in BufferManager.freePage()"));
 		bufferPool[i].decrementPinCount();
 		bufferPool[i].setFlagDirty(valDirty);
 
