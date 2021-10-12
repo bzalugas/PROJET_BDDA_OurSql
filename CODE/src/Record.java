@@ -13,12 +13,12 @@ public class Record
         this.values = new ArrayList<String>();
     }
 
-    public void writeToBuffer(ByteBuffer buff, int index)
+    public void writeToBuffer(ByteBuffer buff, int pos)
     {
-        buff.position(index);
+        buff.position(pos);
         for(String value : this.values)
         {
-            for(String type : this.relInfo.columnType)
+            for(String type : this.relInfo.getColumnType())
             {
                 switch(type)
                 {
@@ -39,6 +39,36 @@ public class Record
                 }
             }
         }
+    }
+
+    public void readFromBuffer(ByteBuffer buff, int pos){
+            for(String type : this.relInfo.getColumnType())
+            {
+                switch(type)
+                {
+                    case "int":
+                        int res = buff.getInt(pos);
+                        this.values.add(String.valueOf(res));
+                        break;
+                    case "float":
+                        float res =buff.getFloat(pos);
+                        this.values.add(String.valueOf(res));
+                        break;
+                    default:
+                        int len = value.length();
+                        int j = O;
+                        char [] chars = new char[len];
+                        for (int i = pos; i < pos+len; i++){
+                            chars[j] = buf.getChar(i));
+                            j++;
+                        }
+                        
+                        String res = new String(chars);
+                        this.values.add(res+len);
+
+                        break;
+                }
+            }
     }
 
     public ArrayList<String> getValues()
