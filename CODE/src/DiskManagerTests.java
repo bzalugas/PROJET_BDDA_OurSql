@@ -5,17 +5,10 @@ import java.util.Arrays;
 public class DiskManagerTests
 {
 
-	public static void testAllocPage(String path)
+	public static PageId testAllocPage()
 	{
-		DBParams.DBPath = path;
-		DBParams.pageSize = 10;
-		DBParams.maxPagesPerFile = 4;
-
-		final int TOT_PAGES = 30;
-
 		DiskManager dm = DiskManager.getInstance();
-		ArrayList<PageId> pages = new ArrayList<PageId>(TOT_PAGES);
-
+		PageId p = null;
 		System.out.println("TestAllocPage");
 		System.out.println("Path = " + DBParams.DBPath);
 		System.out.println("pageSize = " + DBParams.pageSize);
@@ -23,46 +16,90 @@ public class DiskManagerTests
 
 		try
 		{
-			System.out.println("Allocation of " + TOT_PAGES + " pages : ");
-			for (int i = 0; i < TOT_PAGES; i++)
-			{
-				pages.add(dm.AllocPage());
-				System.out.println("Allocated Page : " + pages.get(i).toString());
-
-				ByteBuffer buf = ByteBuffer.allocate(DBParams.pageSize);
-				buf.putChar('B').putChar('O').putChar('N').putChar('J').putChar('O').putChar('U').putChar('R');
-				dm.writePage(pages.get(i), buf);
-				System.out.println("Wrote : " + Arrays.toString(buf.array()));
-			}
-			for (int i = 0; i < TOT_PAGES; i++)
-			{
-				dm.deallocPage(pages.get(i));
-				System.out.println("dealloc " + pages.get(i).toString());
-			}
-			System.out.println("Try to alloc now they all free : ");
-			PageId p = dm.AllocPage();
-			System.out.println("Allocated Page : " + p.toString());
-			for (int i = 0; i < TOT_PAGES; i++)
-			{
-				ByteBuffer buf = ByteBuffer.allocate(DBParams.pageSize);
-				dm.readPage(pages.get(i), buf);
-				System.out.println("read " + pages.get(i) + " : " + Arrays.toString(buf.array()));
-			}
+			p = dm.AllocPage();
+			System.out.println("Allocated Page : " + p);
 		}
 		catch (Exception e)
 		{
-			System.out.println("Error : " + e.getMessage());
+			System.out.println("Exception : " + e.getMessage());
+		}
+		return (p);
+	}
+
+	public static void testWritePage(PageId p, byte[] buf)
+	{
+		ByteBuffer byteBuff = ByteBuffer.allocate(DBParams.pageSize);
+		byteBuff.put(buf);
+		DiskManager dm = DiskManager.getInstance();
+		System.out.println("TestWritePage");
+		try
+		{
+			dm.writePage(p, byteBuff);
+			System.out.println("Wrote " + Arrays.toString(buf) + " to page " + p);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception : " + e.getMessage());
 		}
 	}
 
-	public static void testDeallocPage()
+	public static void testReadPage(PageId p)
 	{
+		ByteBuffer buf = ByteBuffer.allocate(DBParams.pageSize);
+		DiskManager dm = DiskManager.getInstance();
+		System.out.println("TestReadPage");
+		try
+		{
+			dm.readPage(p, buf);
+			System.out.println("Read " + Arrays.toString(buf.array()) + "from page " + p);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception : " + e.getMessage());
+		}
+	}
 
+	public static void testDeallocPage(PageId p)
+	{
+		DiskManager dm = DiskManager.getInstance();
+		System.out.println("TestDeallocPage");
+		try
+		{
+			dm.deallocPage(p);
+			System.out.println("Deallocated page " + p);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception : " + e.getMessage());
+		}
 	}
 
 	public static void main(String[] args)
 	{
 		String path = args[0];
-		testAllocPage(path);
+		DBParams.DBPath = path;
+		DBParams.pageSize = 10;
+		DBParams.maxPagesPerFile = 4;
+		final int TOT_PAGES = 10;
+		ArrayList<PageId> pages = new ArrayList<PageId>();
+
+		for (int i = 0; i < TOT_PAGES; i++)
+		{
+			pages.add(testAllocPage());
+		}
+		byte[] text = "BONJOUR".getBytes();
+		for (int i = 0; i < TOT_PAGES; i++)
+		{
+			testWritePage(pages.get(i), text);
+		}
+		testDeallocPage(pages.get(TOT_PAGES / 2));
+		pages.add(TOT_PAGES / 2, testAllocPage());
+		for (int i = 0; i < TOT_PAGES; i++)
+		{
+			testReadPage(pages.get(i));
+			testDeallocPage(pages.get(i));
+		}
+		DiskManager dm = DiskManager.getInstance();
+		dm.cleanupFiles();
 	}
 }

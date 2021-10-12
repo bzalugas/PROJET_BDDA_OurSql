@@ -3,7 +3,7 @@ import java.nio.ByteBuffer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Stack;
-import exceptions.*;
+import exceptions.TooManyFreePageException;
 
 /**
  * Class to manage frames
