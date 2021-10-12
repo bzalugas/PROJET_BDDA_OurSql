@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Exo",
+            "request": "launch",
+            "mainClass": "src.Exo",
+            "projectName": "PROJET_BDDA_Zalugas_Salmi_Averty_c596ad2d"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "src.Main",
+            "projectName": "PROJET_BDDA_Zalugas_Salmi_Averty_c596ad2d"
+        }
+    ]
+}
