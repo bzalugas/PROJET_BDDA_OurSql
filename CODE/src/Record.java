@@ -33,7 +33,7 @@ public class Record
                     default:
                         int len = value.length();
                         for (int i = 0; i < len; i++)
-                            buf.putChar(value.charAt(i));
+                            buff.putChar(value.charAt(i));
             
                         break;
                 }
@@ -57,7 +57,7 @@ public class Record
                         break;
                     default:
                         int len = Integer.parseInt(type.substring(6));
-                        int j = O;
+                        int j = 0;
                         char [] chars = new char[len];
                         for (int i = pos; i < pos+len; i++){
                             chars[j] = buff.getChar(i);
@@ -84,7 +84,7 @@ public class Record
 
     public RelationInfo getRelInfo()
     {
-        return this.relationCount;
+        return this.relInfo;
     }
 
     public void setRelInfo(RelationInfo relInfo)
