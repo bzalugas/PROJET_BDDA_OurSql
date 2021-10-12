@@ -44,7 +44,7 @@ public class BufferManager
 		//Check if pageId already in bufferPool
 		for (int i = 0; i < bufferPool.length; i++)
 		{
-			if (bufferPool[i].getPageId().equals(pageId))
+			if (bufferPool[i].equals(pageId))
 			{
 				//bufferPool[i].setPinCount(bufferPool[i].getPinCount() + 1);
 				bufferPool[i].incrementPinCount();
@@ -63,7 +63,7 @@ public class BufferManager
 		}
 		else
 		{
-			//Politique MRU => ne pas oublier de save si dirty == 1
+			//Politique MRU
 			// => Exception a creer si stack est vide
 			Frame old = unusedFrames.pop();
 			//Check dirty : if true, save
@@ -107,7 +107,7 @@ public class BufferManager
 			if(frame.getFlagDirty())
 				this.dmanager.writePage(frame.getPageId(), frame.getBuffer());
 				
-			frame.setPageId(null); //Frame libre => pid = null ou pid = (-1,0) ??
+			frame.setPageId(new PageId(-1, 0));
 			frame.setPinCount(0);
 			frame.setFlagDirty(false);
 		}
