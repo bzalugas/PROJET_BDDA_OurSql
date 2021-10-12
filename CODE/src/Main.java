@@ -16,6 +16,8 @@ public class Main{
             PageId page;
             Registry reg = Registry.getInstance();
             reg.save();
+            Catalog cat = Catalog.getInstance();
+            cat.save();
         }
         catch(Exception e)
         {
