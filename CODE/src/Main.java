@@ -16,7 +16,6 @@ public class Main{
             PageId page;
             Registry reg = Registry.getInstance();
             reg.save();
-            reg.retrieve(new File("./DB/registry.reg"));
         }
         catch(Exception e)
         {

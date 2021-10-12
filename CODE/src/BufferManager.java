@@ -12,14 +12,14 @@ public class BufferManager
 	private static BufferManager instance = null;
 	private Frame[] bufferPool;
 	private DiskManager dmanager;
-	private Stack unusedFrames;
+	private Stack<Frame> unusedFrames;
 
 	//Private constructor because BufferManage is Singleton
 	private BufferManager()
 	{
 		this.bufferPool = new Frame[DBParams.frameCount];
 		this.dmanager = DiskManager.getInstance();
-		this.unusedFrames = new Stack();
+		this.unusedFrames = new Stack<Frame>();
 		initBufferPool();
 	}
 
@@ -70,16 +70,16 @@ public class BufferManager
 			if (old.getFlagDirty() == true)
 				dmanager.writePage(old.getPageId(), old.getBuffer());
 			//search the frame in bufferPool to replace it
-			int i = 0;
-			while (i < bufferPool.length && !bufferPool[i].equals(old))
-				i++;
+			idx = 0;
+			while (idx < bufferPool.length && !bufferPool[idx].equals(old))
+				idx++;
 			//Replace old frame by new frame
-			bufferPool[i].setPageId(pageId);
-			bufferPool[i].setPinCount(1);
-			bufferPool[i].setFlagDirty(false);
-			dmanager.readPage(pageId, bufferPool[i].getBuffer());
+			bufferPool[idx].setPageId(pageId);
+			bufferPool[idx].setPinCount(1);
+			bufferPool[idx].setFlagDirty(false);
+			dmanager.readPage(pageId, bufferPool[idx].getBuffer());
 		}
-		return (bufferPool[i].getBuffer());
+		return (bufferPool[idx].getBuffer());
 	}
 
 	public void freePage(PageId pageId, boolean valDirty)
@@ -95,7 +95,7 @@ public class BufferManager
 		bufferPool[i].setFlagDirty(valDirty);
 
 		//If pinCount == 0, this is the most recently used
-		if (buffer[i].getPinCount() == 0)
+		if (bufferPool[i].getPinCount() == 0)
 			unusedFrames.push(bufferPool[i]);
 	}
 
