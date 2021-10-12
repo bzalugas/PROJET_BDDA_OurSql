@@ -23,12 +23,12 @@ public class Record
                 switch(type)
                 {
                     case "int":
-                        int outType = Integer.valueOf(value);
-                        buff.putInt(outType);
+                        int resInt = Integer.valueOf(value);
+                        buff.putInt(resInt);
                         break;
                     case "float":
-                        float outType = Float.valueOf(value);
-                        buff.putFloat(outType);
+                        float resFloat = Float.valueOf(value);
+                        buff.putFloat(resFloat);
                         break;
                     default:
                         int len = value.length();
@@ -42,29 +42,30 @@ public class Record
     }
 
     public void readFromBuffer(ByteBuffer buff, int pos){
+        this.values.clear();
             for(String type : this.relInfo.getColumnType())
             {
                 switch(type)
                 {
                     case "int":
-                        int res = buff.getInt(pos);
-                        this.values.add(String.valueOf(res));
+                        int resInt = buff.getInt(pos);
+                        this.values.add(String.valueOf(resInt));
                         break;
                     case "float":
-                        float res =buff.getFloat(pos);
-                        this.values.add(String.valueOf(res));
+                        float resFloat = buff.getFloat(pos);
+                        this.values.add(String.valueOf(resFloat));
                         break;
                     default:
-                        int len = value.length();
+                        int len = Integer.parseInt(type.substring(6));
                         int j = O;
                         char [] chars = new char[len];
                         for (int i = pos; i < pos+len; i++){
-                            chars[j] = buf.getChar(i));
+                            chars[j] = buff.getChar(i);
                             j++;
                         }
                         
-                        String res = new String(chars);
-                        this.values.add(res+len);
+                        String resString = new String(chars);
+                        this.values.add(resString+len);
 
                         break;
                 }
