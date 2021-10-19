@@ -1,8 +1,8 @@
-package kernel;
 import java.util.ArrayList;
 import java.io.*;
 
-public class Catalog
+@SuppressWarnings("serial")
+public class Catalog implements Serializable
 {
     //Single instance of Catalog
     private static Catalog instance = null;
@@ -13,7 +13,8 @@ public class Catalog
     private Catalog(String catPath)
     {   
         this.catPath = catPath;
-        Init();
+        this.listRelationInfo = new ArrayList<RelationInfo>();
+        //Init();
     }
 
     public static final Catalog getInstance()
@@ -37,11 +38,11 @@ public class Catalog
             }
             catch (IOException e)
             {
-                System.out.println("IOException in Catalog.getInstance" + e.getMessage());
+                System.out.println("IOException in Catalog.getInstance " + e.getMessage());
             }
             catch (ClassNotFoundException e)
             {
-                System.out.println("ClassNotFoundException in Catalog.getInstance" + e.getMessage());
+                System.out.println("ClassNotFoundException in Catalog.getInstance " + e.getMessage());
             }
 
         }
