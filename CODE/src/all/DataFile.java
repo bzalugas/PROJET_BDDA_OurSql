@@ -1,3 +1,4 @@
+package all;
 import java.util.Arrays;
 
 //class for a single DataFile

@@ -1,3 +1,4 @@
+package all;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.io.FileInputStream;
@@ -28,7 +29,9 @@ public class Registry implements Serializable
     {
         if (instance == null)
         {
-            String path = DBParams.DBPath + "registry.reg";
+
+            String path = DBParams.DBPath + "/registry.reg";
+            System.out.println("path = " + path);
             try
             {
                 File f = new File(path);
@@ -45,11 +48,11 @@ public class Registry implements Serializable
             }
             catch (IOException e)
             {
-                System.out.println("IOException in Registry.getInstance" + e.getMessage());
+                System.out.println("IOException in Registry.getInstance : " + e.getMessage());
             }
             catch (ClassNotFoundException e)
             {
-                System.out.println("ClassNotFoundException in Registry.getInstance" + e.getMessage());
+                System.out.println("ClassNotFoundException in Registry.getInstance : " + e.getMessage());
             }
 
         }

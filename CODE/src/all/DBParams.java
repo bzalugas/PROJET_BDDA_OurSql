@@ -1,3 +1,4 @@
+package all;
 //Class that give us the DB settings
 public class DBParams
 {

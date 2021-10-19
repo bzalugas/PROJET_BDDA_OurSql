@@ -1,3 +1,4 @@
+package all;
 
 public class RelationInfo
 {

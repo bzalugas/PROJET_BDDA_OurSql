@@ -1,3 +1,4 @@
+package all;
 // Class that manage pages id.
 
 public class PageId
