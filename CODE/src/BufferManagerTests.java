@@ -10,7 +10,8 @@ public class BufferManagerTests {
 
     public static void testGetPage() throws FileNotFoundException, IOException{
         BufferManager bm = BufferManager.getInstance();
-        PageId pageId = new PageId(1, 1);
+        DiskManager dm = DiskManager.getInstance();
+        PageId pageId = dm.AllocPage();
         ByteBuffer buf = bm.getPage(pageId);
 
         System.out.println(buf);
