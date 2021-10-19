@@ -1,4 +1,4 @@
-package exceptions;
+package kernel.exceptions;
 
 @SuppressWarnings("serial")
 public class TooManyFreePageException extends Exception

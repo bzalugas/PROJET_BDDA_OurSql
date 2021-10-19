@@ -1,4 +1,4 @@
-package all;
+package kernel;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.io.FileInputStream;
@@ -31,7 +31,7 @@ public class Registry implements Serializable
         {
 
             String path = DBParams.DBPath + "/registry.reg";
-            System.out.println("path = " + path);
+           
             try
             {
                 File f = new File(path);

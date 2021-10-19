@@ -1,7 +1,8 @@
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import all.*;
+
+import kernel.*;
 
 public class DiskManagerTests
 {

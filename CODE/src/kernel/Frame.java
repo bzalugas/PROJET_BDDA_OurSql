@@ -1,4 +1,4 @@
-package all;
+package kernel;
 // Class that manage Frame's properties and method.
 
 import java.nio.ByteBuffer;

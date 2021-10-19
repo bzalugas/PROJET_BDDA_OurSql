@@ -1,4 +1,4 @@
-package all;
+package kernel;
 // Class that manage pages id.
 
 public class PageId

@@ -1,4 +1,4 @@
-package all;
+package kernel;
 
 import java.io.BufferedReader;
 import java.io.IOException;

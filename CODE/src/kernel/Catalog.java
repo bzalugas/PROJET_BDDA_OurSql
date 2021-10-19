@@ -1,4 +1,4 @@
-package all;
+package kernel;
 import java.util.ArrayList;
 import java.io.*;
 

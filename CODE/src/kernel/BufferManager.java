@@ -1,10 +1,10 @@
-package all;
+package kernel;
 import java.util.ArrayList;
 import java.nio.ByteBuffer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Stack;
-import exceptions.TooManyFreePageException;
+import kernel.exceptions.*;
 
 /**
  * Class to manage frames
@@ -115,4 +115,30 @@ public class BufferManager
 			frame.setFlagDirty(false);
 		}
 	}
+
+
+	public Frame[] getBufferPool() {
+		return this.bufferPool;
+	}
+
+	public void setBufferPool(Frame[] bufferPool) {
+		this.bufferPool = bufferPool;
+	}
+
+	public DiskManager getDmanager() {
+		return this.dmanager;
+	}
+
+	public void setDmanager(DiskManager dmanager) {
+		this.dmanager = dmanager;
+	}
+
+	public Stack<Frame> getUnusedFrames() {
+		return this.unusedFrames;
+	}
+
+	public void setUnusedFrames(Stack<Frame> unusedFrames) {
+		this.unusedFrames = unusedFrames;
+	}
+
 }

@@ -1,4 +1,4 @@
-package all;
+package kernel;
 
 public class RelationInfo
 {
