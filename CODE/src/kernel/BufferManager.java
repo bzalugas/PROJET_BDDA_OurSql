@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.nio.ByteBuffer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.EmptyStackException;
 import java.util.Stack;
 import kernel.exceptions.*;
 
@@ -39,7 +40,8 @@ public class BufferManager
 		return instance;
 	}
 
-	public ByteBuffer getPage(PageId pageId) throws FileNotFoundException, IOException
+	public ByteBuffer getPage(PageId pageId) throws FileNotFoundException, IOException,
+													EmptyStackException
 	{
 		int idx = -1; //idx of the first free frame (in order to visit the buffer pool only one time)
 
@@ -66,7 +68,6 @@ public class BufferManager
 		else
 		{
 			//Politique MRU
-			// => Exception a creer si stack est vide
 			Frame old = unusedFrames.pop();
 			//Check dirty : if true, save
 			if (old.getFlagDirty() == true)
@@ -93,7 +94,7 @@ public class BufferManager
 		//bufferPool[i].setPinCount(bufferPool[i].getPinCount() - 1);
 
 		if (bufferPool[i].getPinCount() == 0)
-			throw (new TooManyFreePageException("Too many freePage in BufferManager.freePage()"));
+			throw (new TooManyFreePageException());
 		bufferPool[i].decrementPinCount();
 		bufferPool[i].setFlagDirty(valDirty);
 
