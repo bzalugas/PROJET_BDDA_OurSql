@@ -33,6 +33,25 @@ public class BufferManagerTests {
 
     }
 
+    public static void testFlushAll() throws FileNotFoundException, IOException, TooManyFreePageException{
+        BufferManager bm = BufferManager.getInstance();
+        DiskManager dm = DiskManager.getInstance();
+        ByteBuffer buff= ByteBuffer.allocate(DBParams.pageSize);
+        PageId pageId = dm.AllocPage();
+
+        System.out.println("testFreePage");
+
+        bm.freePage(pageId, true);
+
+        dm.readPage(pageId, buff);
+        System.out.print("Before flush all : " + Arrays.toString(buff.array()));
+
+        bm.flushAll();
+
+        dm.readPage(pageId, buff);
+        System.out.print("After flush all : " + Arrays.toString(buff.array()));
+    }
+
     public static void main(String[] args){
         String path = args[0];
 		DBParams.DBPath = path;
@@ -44,6 +63,7 @@ public class BufferManagerTests {
         try {
             testGetPage();
             testFreePage();
+            testFlushAll();
         } catch (FileNotFoundException e) {
             System.out.println(e);
             e.printStackTrace();
