@@ -1,5 +1,7 @@
 package kernel;
 
+import java.nio.ByteBuffer;
+
 public class FileManager {
     private static FileManager instance = null;
 
@@ -14,5 +16,9 @@ public class FileManager {
 			instance = new FileManager();
 		return instance;
 	}
+
+    public PageId readPageIdFromPageBuffer(ByteBuffer buf, boolean first){
+        return ;
+    }
 
 }
