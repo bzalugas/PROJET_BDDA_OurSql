@@ -37,19 +37,25 @@ public class BufferManagerTests {
         BufferManager bm = BufferManager.getInstance();
         DiskManager dm = DiskManager.getInstance();
         ByteBuffer buff= ByteBuffer.allocate(DBParams.pageSize);
+        ByteBuffer buf;
         PageId pageId = dm.AllocPage();
 
+        buf = bm.getPage(pageId);
+        
         System.out.println("testFreePage");
+
+        byte[] text = "BONJOUR".getBytes();
+        buf.put(text);
 
         bm.freePage(pageId, true);
 
         dm.readPage(pageId, buff);
-        System.out.print("Before flush all : " + Arrays.toString(buff.array()));
+        System.out.println("Before flush all : " + Arrays.toString(buff.array()));
 
         bm.flushAll();
 
         dm.readPage(pageId, buff);
-        System.out.print("After flush all : " + Arrays.toString(buff.array()));
+        System.out.println("After flush all : " + Arrays.toString(buff.array()));
     }
 
     public static void main(String[] args){
