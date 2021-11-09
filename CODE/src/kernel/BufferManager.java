@@ -91,7 +91,7 @@ public class BufferManager
 	{
 		int i = 0;
 
-		while (bufferPool[i].equals(pageId) == false)
+		while (i < bufferPool.length && (bufferPool[i].getPageId().equals(pageId) == false))
 			i++;
 		//bufferPool[i].setPinCount(bufferPool[i].getPinCount() - 1);
 

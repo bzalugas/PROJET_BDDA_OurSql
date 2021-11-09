@@ -15,21 +15,21 @@ public class BufferManagerTests {
         PageId pageId = dm.AllocPage();
         ByteBuffer buf = bm.getPage(pageId);
 
+        System.out.println("testGetPage");
         System.out.println(Arrays.toString(buf.array()));
-
     }
 
     public static void testFreePage() throws FileNotFoundException, IOException, TooManyFreePageException{
         BufferManager bm = BufferManager.getInstance();
         DiskManager dm = DiskManager.getInstance();
         PageId pageId = dm.AllocPage();
+
+        System.out.println("testFreePage");
         bm.getPage(pageId);
-
+        System.out.println("Page demandee = " + pageId);
         System.out.println("BufferPool avant free : " + Arrays.toString(bm.getBufferPool()));
-
         bm.freePage(pageId, true);
-
-        System.out.println("BufferPool apres  free : " + bm.getBufferPool());
+        System.out.println("BufferPool apres  free : " + Arrays.toString(bm.getBufferPool()));
 
     }
 
