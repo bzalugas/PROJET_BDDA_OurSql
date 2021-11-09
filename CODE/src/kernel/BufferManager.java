@@ -95,7 +95,7 @@ public class BufferManager
 			i++;
 		//bufferPool[i].setPinCount(bufferPool[i].getPinCount() - 1);
 
-		if (bufferPool[i].getPinCount() == 0)
+		if (i >= bufferPool.length || bufferPool[i].getPinCount() == 0)
 			throw (new TooManyFreePageException());
 		bufferPool[i].decrementPinCount();
 		bufferPool[i].setFlagDirty(valDirty);
