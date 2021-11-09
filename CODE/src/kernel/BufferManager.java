@@ -58,6 +58,7 @@ public class BufferManager
 				idx = i;
 		}
 		//if not, check if there is an empty frame (idx != -1 means the first loop found a free frame)
+		
 		if (idx != -1)
 		{
 			bufferPool[idx].setPageId(pageId);
