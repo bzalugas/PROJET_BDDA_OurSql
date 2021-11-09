@@ -28,7 +28,7 @@ public class BufferManager
 
 	private void initBufferPool()
 	{
-		for (int i = 0; i < bufferPool.length; i++)
+		for (int i = 0; i < DBParams.frameCount; i++)
 			bufferPool[i] = new Frame();
 	}
 
@@ -45,6 +45,7 @@ public class BufferManager
 	{
 		int idx = -1; //idx of the first free frame (in order to visit the buffer pool only one time)
 
+		// System.out.println("bf length = " + bufferPool.length);
 		//Check if pageId already in bufferPool
 		for (int i = 0; i < bufferPool.length; i++)
 		{

@@ -84,6 +84,7 @@ public class Frame
 
     public boolean isEmpty()
     {
+        // System.out.println("fileIdx = " + pageId.getFileIdx());
         if (pageId.getFileIdx() == -1)
             return (true);
         return (false);
