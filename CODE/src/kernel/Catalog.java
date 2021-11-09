@@ -86,12 +86,13 @@ public class Catalog implements Serializable
     }
     public void supRelation(String nomRelation)
     {   
-        int i = -1;
+        int i = 0;
         for(RelationInfo inf : this.listRelationInfo) {
-             i++;
-             if(nomRelation.equals(inf.getRelationName())){
+            if(nomRelation.equals(inf.getRelationName())){
+                // System.out.println("ab");
                 listRelationInfo.remove(i);
              }
+             i++;
         }
     }
 
