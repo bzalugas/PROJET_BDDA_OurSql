@@ -26,7 +26,30 @@ public class RelationInfo
 	 */
 	private int calculRecordSize()
 	{
+		int	recordSize = 0;
+		int	len;
 
+		for (String type : columnType)
+		{
+			type.toLowerCase();
+            switch(type)
+            {
+                case "int":
+                    recordSize += 4;
+                    break;
+                case "float":
+                    recordSize += 4;
+                    break;
+                default:
+                    if (type.substring(0,5).equals("string"))
+                    {
+                        len = Integer.parseInt(type.substring(6));
+                        recordSize += 2 * len;
+                    }
+                    break;
+			}
+		}
+		return (recordSize);
 	}
 
 	public String getRelationName()
