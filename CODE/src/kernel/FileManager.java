@@ -1,5 +1,6 @@
 package kernel;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 
 public class FileManager {
@@ -18,6 +19,12 @@ public class FileManager {
 		return instance;
 	}
 
+	/** Read a pageId from a buffer.
+	 * 
+	 * @param buf 
+	 * @param first 
+	 * @return pageId
+	 */
     public PageId readPageIdFromPageBuffer(ByteBuffer buf, boolean first)
 	{
 		int pageIdint = first 
@@ -31,6 +38,12 @@ public class FileManager {
 		return pageId;
     }
 
+	/** Write a page id into a buffer.
+	 * 
+	 * @param pageId
+	 * @param buf
+	 * @param first
+	 */
 	public void writePageIdFromPageBuffer(PageId pageId, ByteBuffer buf, boolean first)
 	{
 		String tmp = pageId.getFileIdx() + "" + pageId.getPageIdx();
@@ -42,5 +55,18 @@ public class FileManager {
 		else
 			buf.putInt(3, pageIdInt);
     }
+
+	public PageId createHeaderPage() throws IOException{
+		DiskManager dm = DiskManager.getInstance();
+		BufferManager  bm = BufferManager.getInstance();
+		PageId pageId = dm.AllocPage();
+
+		ByteBuffer buf = bm.getPage(pageId);
+
+		writePageIdFromPageBuffer(new PageId(-1, 0), buf, true);
+		writePageIdFromPageBuffer(new PageId(-1, 0), buf, false);
+
+		return pageId;
+	}
 
 }
