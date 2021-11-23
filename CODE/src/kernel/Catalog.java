@@ -3,27 +3,40 @@ package kernel;
 import java.util.ArrayList;
 import java.io.*;
 
+/**
+ * Contains scheme informations for all database
+ */
+
 @SuppressWarnings("serial")
 public class Catalog implements Serializable
 {
-    //Single instance of Catalog
+    /*Single instance of Catalog*/
     private static Catalog instance = null;
-
+    /*List of relations*/
     private ArrayList<RelationInfo> listRelationInfo;
-    private String catPath;
+    /*path of the file containing the catalog*/
+    private String catalogPath;
 
-    private Catalog(String catPath)
+    /**
+     * Private constructor for the singleton
+     */
+    private Catalog(String catalogPath)
     {   
-        this.catPath = catPath;
+        this.catalogPath = catalogPath;
         this.listRelationInfo = new ArrayList<RelationInfo>();
         //Init();
     }
 
+    /**
+     * Get the unique instance of Catalog
+     * Method init is directly implemented inside getInstance()
+     * @return unique instance of Catalog
+     */
     public static final Catalog getInstance()
     {
         if (instance == null)
         {
-            String path = DBParams.DBPath + "catalog.reg";
+            String path = DBParams.DBPath + "Catalog.def";
             try
             {
                 File f = new File(path);
@@ -51,11 +64,14 @@ public class Catalog implements Serializable
         return instance;
     }
 
-    public void save ()
+    /**
+     * Method to save instance of Catalog in a file (serialization)
+     */
+    private void save ()
     {
         try
         {
-            File f  = new File(catPath);
+            File f  = new File(catalogPath);
             FileOutputStream fileOut = new FileOutputStream(f);
             ObjectOutputStream objOut = new ObjectOutputStream(fileOut);
             objOut.writeObject(this);
@@ -67,33 +83,35 @@ public class Catalog implements Serializable
         {
             System.out.println("IOException in Catalog.save : " + e.getMessage());
         }
-
     }
 
-    public void Init()
+    /**
+     * Called at the end of Catalog
+     */
+    public void finish()
     {
- 
+        save();
     }
 
-    public void Finish()
-    {
-
-    }
-
+    /**
+     * Method to add a relation
+     * @param relationInfo relation's informations
+     */
     public void addRelation(RelationInfo relationInfo)
     {
         this.listRelationInfo.add(relationInfo);
     }
-    public void supRelation(String nomRelation)
-    {   
-        int i = 0;
-        for(RelationInfo inf : this.listRelationInfo) {
-            if(nomRelation.equals(inf.getRelationName())){
-                // System.out.println("ab");
+
+    /**
+     * Method to delete a relation of catalog
+     * @param nomRelation the name of the relation to delete
+     */
+    public void delRelation(String nomRelation)
+    {
+        int i;
+        for(i = 0; i < listRelationInfo.size(); i++)
+            if(nomRelation.equals(listRelationInfo.get(i).getRelationName()))
                 listRelationInfo.remove(i);
-             }
-             i++;
-        }
     }
 
     public ArrayList<RelationInfo> getListRelationInfo()
@@ -105,6 +123,4 @@ public class Catalog implements Serializable
     {
         this.listRelationInfo = listRelationInfo;
     }
-
- 
 }
