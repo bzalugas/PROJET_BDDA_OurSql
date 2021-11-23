@@ -8,8 +8,8 @@ public class RelationInfo
 	private String[]	columnName;
 	private String[]	columnType;
 	private PageId		headerPageId;
-	private int		recordSize;
-	private int		slotCount;
+	// private int		recordSize;
+	// private int		slotCount;
 
 	public RelationInfo(String relationName, int columnNumber, PageId headerPageId)
 	{
@@ -24,7 +24,7 @@ public class RelationInfo
 	 * Calculation of the size of a Record
 	 * @return the size of a Record
 	 */
-	private int calculRecordSize()
+	public int calculRecordSize()
 	{
 		int	recordSize = 0;
 		int	len;
@@ -50,6 +50,11 @@ public class RelationInfo
 			}
 		}
 		return (recordSize);
+	}
+
+	public int calculSlotCount()
+	{
+
 	}
 
 	public String getRelationName()
