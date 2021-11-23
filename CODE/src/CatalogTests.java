@@ -23,8 +23,8 @@ public class CatalogTests
             System.out.println("nombre de colonne "+i+" est : "+cat.getListRelationInfo().get(i).getColumnNumber());
         }
 
-        cat.supRelation("prof");
-        cat.supRelation("etudiant");
+        cat.delRelation("prof");
+        cat.delRelation("etudiant");
 
         // for(int i = 0; i < cat.getListRelationInfo().size(); i++){
         //     System.out.println("nom de la realtion "+i+" est : "+cat.getListRelationInfo().get(i).getRelationName());

@@ -17,7 +17,7 @@ public class Main{
             Registry reg = Registry.getInstance();
             reg.save();
             Catalog cat = Catalog.getInstance();
-            cat.save();
+            cat.finish();
         }
         catch(Exception e)
         {

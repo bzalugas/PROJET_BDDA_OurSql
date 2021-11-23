@@ -1,7 +1,11 @@
 package kernel;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.EmptyStackException;
+
+import kernel.exceptions.TooManyFreePageException;
 
 public class FileManager {
     private static FileManager instance = null;
@@ -55,10 +59,17 @@ public class FileManager {
 		else
 			buf.putInt(3, pageIdInt);
     }
-
-	public PageId createHeaderPage() throws IOException{
+	/** Creates a new HeaderPage
+	 * 
+	 * @return PageId of the new HeaderPage
+	 * @throws IOException
+	 * @throws TooManyFreePageException
+	 */
+	public PageId createHeaderPage() throws IOException, TooManyFreePageException
+	{
 		DiskManager dm = DiskManager.getInstance();
 		BufferManager  bm = BufferManager.getInstance();
+
 		PageId pageId = dm.AllocPage();
 
 		ByteBuffer buf = bm.getPage(pageId);
@@ -66,7 +77,69 @@ public class FileManager {
 		writePageIdFromPageBuffer(new PageId(-1, 0), buf, true);
 		writePageIdFromPageBuffer(new PageId(-1, 0), buf, false);
 
+		bm.freePage(pageId, true);
+
+		return pageId;
+	}
+	/** Add a new data page to the heap file of the given relation.
+	 * 
+	 * @param relInfo
+	 * @return PageId of the new DataPage.
+	 * @throws IOException
+	 * @throws TooManyFreePageException
+	 */
+	public PageId addDataPage(RelationInfo relInfo) throws IOException, TooManyFreePageException
+	{
+		DiskManager dm = DiskManager.getInstance();
+		BufferManager bm = BufferManager.getInstance();
+
+		PageId pageId = dm.AllocPage();
+
+		ByteBuffer bufHeaderPage = bm.getPage(relInfo.getHeaderPageId());
+		ByteBuffer buf = bm.getPage(pageId);
+
+
+		writePageIdFromPageBuffer(pageId, bufHeaderPage, true);
+		writePageIdFromPageBuffer(relInfo.getHeaderPageId(), buf, false);
+		
+		bm.freePage(pageId, true);
+		bm.freePage(relInfo.getHeaderPageId(), true);
+
 		return pageId;
 	}
 
+	/** Gets a free data page from the given relation.
+	 * 
+	 * @param relInfo
+	 * @return PageId of the free data pag.
+	 * @throws FileNotFoundException
+	 * @throws EmptyStackException
+	 * @throws IOException
+	 */
+	public PageId getFreeDataPageId(RelationInfo relInfo) throws FileNotFoundException, EmptyStackException, IOException
+	{ //to finish
+		BufferManager bm = BufferManager.getInstance();
+		PageId pageIdHeaderPage = relInfo.getHeaderPageId();
+		ByteBuffer buf = bm.getPage(pageIdHeaderPage);
+		PageId currentPageId = readPageIdFromPageBuffer(buf, true);
+
+	}
+
+	/** Write a new record to a given data page.
+	 * 
+	 * @param relInfo
+	 * @param record
+	 * @param pageId
+	 * @return Rid
+	 * @throws FileNotFoundException
+	 * @throws EmptyStackException
+	 * @throws IOException
+	 */
+	public Rid writeToDataPage(RelationInfo relInfo, Record record, PageId pageId) throws FileNotFoundException, EmptyStackException, IOException
+	{//to finish
+		BufferManager bm = BufferManager.getInstance();
+
+		bm.getPage(pageId);
+
+	}
 }
