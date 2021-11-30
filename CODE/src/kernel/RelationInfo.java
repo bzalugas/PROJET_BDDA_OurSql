@@ -51,12 +51,12 @@ public class RelationInfo
 		}
 		return (recordSize);
 	}
-
+    /*
 	public int calculSlotCount()
 	{
 
 	}
-
+    */
 	public String getRelationName()
 	{
 		return this.relationName;

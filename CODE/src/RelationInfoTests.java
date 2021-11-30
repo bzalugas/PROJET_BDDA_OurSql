@@ -5,10 +5,11 @@ public class RelationInfoTests
 {
 
     public static void testCalculRecordSize(String relationName, int columnNumber, String[]	columnType){
-        RelationInfo rel = new RelationInfo(relationName,columnNumber,0);
+        RelationInfo rel = new RelationInfo(relationName,columnNumber,new PageId(0,0));
         String nomColumn = "Test ";
         int j = 0;
-
+        
+        //Permet de nommer toutes les colonnes
         for (int i = 0; i<columnNumber ;i++ ) {
         	 nomColumn = "Test ";
         	 nomColumn.concat(String.valueOf(i));
@@ -26,7 +27,7 @@ public class RelationInfoTests
             j++;
         }    
 
-       System.out.println("Taille du record = "+rel.calculRecordSize);
+       System.out.println("Taille du record = "+rel.calculRecordSize());
 
     }
 
@@ -37,7 +38,8 @@ public class RelationInfoTests
 		DBParams.maxPagesPerFile = 4;
         DBParams.frameCount = 4;
 		final int TOT_PAGES = 10;
-
+        
+        //Valeurs choisi arbitrairement
         String relationName = "TestRelInfo";
         int columnNumber = 4;
         String[] columnType = {"String2","String8","int","float"};
