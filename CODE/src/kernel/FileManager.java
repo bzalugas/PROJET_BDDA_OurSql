@@ -57,7 +57,7 @@ public class FileManager {
 		if(first)
 			buf.putInt(0, pageIdInt);
 		else
-			buf.putInt(3, pageIdInt);
+			buf.putInt(4, pageIdInt);
     }
 	/** Creates a new HeaderPage
 	 * 
@@ -125,19 +125,22 @@ public class FileManager {
 		PageId currentPageId = readPageIdFromPageBuffer(bufHp, true);
 		ByteBuffer bufCurPage = bm.getPage(currentPageId);
 		int recordSize = relInfo.calculRecordSize();
-		int k = 7;
+		int k = 8;
 
 		for(int i = 0; i < DBParams.frameCount; i++){
 			for(int j = 0; j < DBParams.maxPagesPerFile; j++){
 				if(bufCurPage.get(k) == 0){
 					k += recordSize;
+					bm.freePage(currentPageId, false);
 					return currentPageId;
 				}
 			}
+			bm.freePage(currentPageId, false);
 			currentPageId = readPageIdFromPageBuffer(bufCurPage, true);
 			bufCurPage = bm.getPage(currentPageId);
 		}
 
+		bm.freePage(currentPageId, false);
 		return this.addDataPage(relInfo);
 
 	}
