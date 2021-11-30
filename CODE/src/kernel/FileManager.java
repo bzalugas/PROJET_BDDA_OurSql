@@ -117,11 +117,27 @@ public class FileManager {
 	 * @throws IOException
 	 */
 	public PageId getFreeDataPageId(RelationInfo relInfo) throws FileNotFoundException, EmptyStackException, IOException
-	{ //to finish
+	{ 
 		BufferManager bm = BufferManager.getInstance();
 		PageId pageIdHeaderPage = relInfo.getHeaderPageId();
-		ByteBuffer buf = bm.getPage(pageIdHeaderPage);
-		PageId currentPageId = readPageIdFromPageBuffer(buf, true);
+		ByteBuffer bufHp = bm.getPage(pageIdHeaderPage);
+		PageId currentPageId = readPageIdFromPageBuffer(bufHp, true);
+		ByteBuffer bufCurPage = bm.getPage(currentPageId);
+		int recordSize = relInfo.calculRecordSize();
+		int k = 7;
+
+		for(int i = 0; i < DBParams.frameCount; i++){
+			for(int j = 0; j < DBParams.maxPagesPerFile; j++){
+				if(bufCurPage.get(k) == 0){
+					k += recordSize;
+					return currentPageId;
+				}
+			}
+			currentPageId = readPageIdFromPageBuffer(bufCurPage, true);
+			bufCurPage = bm.getPage(currentPageId);
+		}
+
+		return null;
 
 	}
 

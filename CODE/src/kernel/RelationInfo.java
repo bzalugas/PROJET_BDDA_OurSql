@@ -24,7 +24,7 @@ public class RelationInfo
 	 * Calculation of the size of a Record
 	 * @return the size of a Record
 	 */
-	private int calculRecordSize()
+	public int calculRecordSize()
 	{
 		int	recordSize = 0;
 		int	len;
