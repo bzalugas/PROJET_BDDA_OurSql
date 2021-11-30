@@ -51,12 +51,21 @@ public class RelationInfo
 		}
 		return (recordSize);
 	}
-    /*
+
+	/**
+	 * Calculation of the slotCount
+	 * @return the number of slots needed for the relation
+	 */
 	public int calculSlotCount()
 	{
-
+		/*slotCount = nb slots in a page for the relation*/
+		/*slotCount = pageSize - 2 pageId size - bytemap size / recordSize*/
+		int recordSize = calculRecordSize();
+		int byteMapLength = (DBParams.pageSize - 8) / recordSize;
+		int slotCount = (DBParams.pageSize - 8 - byteMapLength) / recordSize;
+		return (slotCount);
 	}
-    */
+
 	public String getRelationName()
 	{
 		return this.relationName;
