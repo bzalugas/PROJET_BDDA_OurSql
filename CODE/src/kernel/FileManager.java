@@ -129,23 +129,8 @@ public class FileManager {
 			return this.addDataPage(relInfo);
 		}
 
-		ByteBuffer bufCurPageId = bm.getPage(pageId);
-		int freeSlot = 0;
-		int pos = 8;
-
-		for(; pos < relInfo.calculSlotCount() + 8; pos++){
-			if(bufCurPageId.get(pos) == 0){
-				freeSlot++;
-			}
-		}
-
-		if(freeSlot == 0){
-			writePageIdFromPageBuffer(pageId, bufHp, false);
-			writePageIdFromPageBuffer(pageIdHeaderPage, bufCurPageId, true);
-		}
-
-		bm.freePage(pageId, true);
-		bm.freePage(pageIdHeaderPage, true);
+		bm.freePage(pageId, false);
+		bm.freePage(pageIdHeaderPage, false);
 
 		return pageId;
 
@@ -160,16 +145,32 @@ public class FileManager {
 	 * @throws FileNotFoundException
 	 * @throws EmptyStackException
 	 * @throws IOException
+	 * @throws TooManyFreePageException
 	 */
-	public Rid writeToDataPage(RelationInfo relInfo, Record record, PageId pageId) throws FileNotFoundException, EmptyStackException, IOException
+	public Rid writeToDataPage(RelationInfo relInfo, Record record, PageId pageId) throws FileNotFoundException, EmptyStackException, IOException, TooManyFreePageException
 	{//to finish
 		BufferManager bm = BufferManager.getInstance();
+		ByteBuffer headerPage = bm.getPage(relInfo.getHeaderPageId());
 
-	
+		ByteBuffer bufCurPageId = bm.getPage(pageId);
+		int freeSlot = 0;
 
+		for(int pos = 8; pos < relInfo.calculSlotCount() + 8; pos++){
+			if(bufCurPageId.get(pos) == 0){
+				freeSlot++;
+				// write dataPage
+				break;
+			}
+		}
 
+		if(freeSlot == 0){
+			writePageIdFromPageBuffer(pageId, headerPage, false);
+			writePageIdFromPageBuffer(relInfo.getHeaderPageId(), bufCurPageId, true);
+		}
 
-		
+		bm.freePage(pageId, true);
+		bm.freePage(relInfo.getHeaderPageId(), true);
 
+		return new Rid(pageId, freeSlot);
 	}
 }
