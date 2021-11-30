@@ -115,8 +115,9 @@ public class FileManager {
 	 * @throws FileNotFoundException
 	 * @throws EmptyStackException
 	 * @throws IOException
+	 * @throws TooManyFreePageException
 	 */
-	public PageId getFreeDataPageId(RelationInfo relInfo) throws FileNotFoundException, EmptyStackException, IOException
+	public PageId getFreeDataPageId(RelationInfo relInfo) throws FileNotFoundException, EmptyStackException, IOException, TooManyFreePageException
 	{ 
 		BufferManager bm = BufferManager.getInstance();
 		PageId pageIdHeaderPage = relInfo.getHeaderPageId();
@@ -137,7 +138,7 @@ public class FileManager {
 			bufCurPage = bm.getPage(currentPageId);
 		}
 
-		return null;
+		return this.addDataPage(relInfo);
 
 	}
 
