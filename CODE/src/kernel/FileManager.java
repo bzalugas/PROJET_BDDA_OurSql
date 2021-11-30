@@ -131,13 +131,12 @@ public class FileManager {
 
 		ByteBuffer bufCurPageId = bm.getPage(pageId);
 		int freeSlot = 0;
-		int k = 8;
+		int pos = 8;
 
-		for(int i = 0; i < relInfo.calculSlotCount(); i++){
-			if(bufCurPageId.get(k) == 0){
+		for(; pos < relInfo.calculSlotCount() + 8; pos++){
+			if(bufCurPageId.get(pos) == 0){
 				freeSlot++;
 			}
-			k++;
 		}
 
 		if(freeSlot == 0){
