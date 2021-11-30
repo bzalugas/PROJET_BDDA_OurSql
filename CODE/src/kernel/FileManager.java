@@ -57,7 +57,7 @@ public class FileManager {
 		if(first)
 			buf.putInt(0, pageIdInt);
 		else
-			buf.putInt(4, pageIdInt);
+			buf.putInt(8, pageIdInt);
     }
 	/** Creates a new HeaderPage
 	 * 
@@ -123,26 +123,14 @@ public class FileManager {
 		BufferManager bm = BufferManager.getInstance();
 		PageId pageIdHeaderPage = relInfo.getHeaderPageId();
 		ByteBuffer bufHp = bm.getPage(pageIdHeaderPage);
-		PageId currentPageId = readPageIdFromPageBuffer(bufHp, true);
-		ByteBuffer bufCurPage = bm.getPage(currentPageId);
-		int recordSize = relInfo.calculRecordSize();
-		int k = 8;
+		PageId pageId = readPageIdFromPageBuffer(bufHp, true);
 
-		for(int i = 0; i < DBParams.frameCount; i++){
-			for(int j = 0; j < relInfo.calculSlotCount(); j++){
-				if(bufCurPage.get(k) == 0){
-					k += recordSize;
-					bm.freePage(currentPageId, false);
-					return currentPageId;
-				}
-			}
-			bm.freePage(currentPageId, false);
-			currentPageId = readPageIdFromPageBuffer(bufCurPage, true);
-			bufCurPage = bm.getPage(currentPageId);
+		if(pageId.getFileIdx() == -1){
+			return this.addDataPage(relInfo);
 		}
 
-		bm.freePage(currentPageId, false);
-		return this.addDataPage(relInfo);
+		// to finish
+		return pageId;
 
 	}
 
@@ -159,7 +147,10 @@ public class FileManager {
 	public Rid writeToDataPage(RelationInfo relInfo, Record record, PageId pageId) throws FileNotFoundException, EmptyStackException, IOException
 	{//to finish
 		BufferManager bm = BufferManager.getInstance();
-		ByteBuffer currentPage = bm.getPage(pageId);
+
+	
+
+
 
 		
 
