@@ -97,10 +97,11 @@ public class FileManager {
 
 		ByteBuffer bufHeaderPage = bm.getPage(relInfo.getHeaderPageId());
 		ByteBuffer buf = bm.getPage(pageId);
-
+		PageId nextPageId = readPageIdFromPageBuffer(bufHeaderPage, true);
 
 		writePageIdFromPageBuffer(pageId, bufHeaderPage, true);
-		writePageIdFromPageBuffer(relInfo.getHeaderPageId(), buf, false);
+		writePageIdFromPageBuffer(relInfo.getHeaderPageId(), buf, true);
+		writePageIdFromPageBuffer(nextPageId, buf, false);
 		
 		bm.freePage(pageId, true);
 		bm.freePage(relInfo.getHeaderPageId(), true);
@@ -158,8 +159,9 @@ public class FileManager {
 	public Rid writeToDataPage(RelationInfo relInfo, Record record, PageId pageId) throws FileNotFoundException, EmptyStackException, IOException
 	{//to finish
 		BufferManager bm = BufferManager.getInstance();
+		ByteBuffer currentPage = bm.getPage(pageId);
 
-		bm.getPage(pageId);
+		
 
 	}
 }
