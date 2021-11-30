@@ -129,7 +129,25 @@ public class FileManager {
 			return this.addDataPage(relInfo);
 		}
 
-		// to finish
+		ByteBuffer bufCurPageId = bm.getPage(pageId);
+		int freeSlot = 0;
+		int k = 8;
+
+		for(int i = 0; i < relInfo.calculSlotCount(); i++){
+			if(bufCurPageId.get(k) == 0){
+				freeSlot++;
+			}
+			k++;
+		}
+
+		if(freeSlot == 0){
+			writePageIdFromPageBuffer(pageId, bufHp, false);
+			writePageIdFromPageBuffer(pageIdHeaderPage, bufCurPageId, true);
+		}
+
+		bm.freePage(pageId, true);
+		bm.freePage(pageIdHeaderPage, true);
+
 		return pageId;
 
 	}
