@@ -129,7 +129,7 @@ public class FileManager {
 		int k = 8;
 
 		for(int i = 0; i < DBParams.frameCount; i++){
-			for(int j = 0; j < DBParams.maxPagesPerFile; j++){
+			for(int j = 0; j < relInfo.calculSlotCount(); j++){
 				if(bufCurPage.get(k) == 0){
 					k += recordSize;
 					bm.freePage(currentPageId, false);
