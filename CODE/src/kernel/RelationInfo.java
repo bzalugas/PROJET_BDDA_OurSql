@@ -8,8 +8,8 @@ public class RelationInfo
 	private String[]	columnName;
 	private String[]	columnType;
 	private PageId		headerPageId;
-	private int		recordSize;
-	private int		slotCount;
+	// private int		recordSize;
+	// private int		slotCount;
 
 	public RelationInfo(String relationName, int columnNumber, PageId headerPageId)
 	{
@@ -51,7 +51,12 @@ public class RelationInfo
 		}
 		return (recordSize);
 	}
+    /*
+	public int calculSlotCount()
+	{
 
+	}
+    */
 	public String getRelationName()
 	{
 		return this.relationName;

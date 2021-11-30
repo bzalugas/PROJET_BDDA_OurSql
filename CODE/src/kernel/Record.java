@@ -113,4 +113,11 @@ public class Record
     {
         this.relInfo = relInfo;
     }
+    public void printValues()
+    {   
+        System.out.println("");
+        for(String value : this.values) {
+            System.out.print("["+value+"]");
+        }
+    }
 }
