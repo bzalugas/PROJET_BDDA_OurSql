@@ -3,6 +3,7 @@ package kernel;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 import kernel.exceptions.TooManyFreePageException;
@@ -198,5 +199,27 @@ public class FileManager {
 
 
 		return new Rid(pageId, freePos);
+	}
+
+	public ArrayList<Record> getRecordsInDataPage (RelationInfo relInfo, PageId pageId) throws FileNotFoundException, EmptyStackException, IOException{
+		BufferManager bm = BufferManager.getInstance();
+		ArrayList<Record> res = new ArrayList<>();
+		ByteBuffer bufCurPageId = bm.getPage(pageId);
+		int cursor = 16 + relInfo.calculSlotCount();
+
+		for(int i = 0; i < relInfo.calculSlotCount(); i++){
+			byte [] newBuf = new byte[relInfo.calculRecordSize()];
+			Record newRecord = new Record(relInfo);
+			
+			for(int j = 0; j < relInfo.calculRecordSize(); j++){
+				newBuf[j] = bufCurPageId.get(cursor + j);
+			}
+			
+			newRecord.readFromBuffer(ByteBuffer.wrap(newBuf), 0);
+			res.add(newRecord);
+
+			cursor += relInfo.calculRecordSize();
+		}
+		return res;
 	}
 }
