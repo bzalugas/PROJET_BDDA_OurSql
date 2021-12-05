@@ -148,29 +148,55 @@ public class FileManager {
 	 * @throws TooManyFreePageException
 	 */
 	public Rid writeToDataPage(RelationInfo relInfo, Record record, PageId pageId) throws FileNotFoundException, EmptyStackException, IOException, TooManyFreePageException
-	{//to finish
+	{
 		BufferManager bm = BufferManager.getInstance();
 		ByteBuffer headerPage = bm.getPage(relInfo.getHeaderPageId());
-
 		ByteBuffer bufCurPageId = bm.getPage(pageId);
-		int freeSlot = 0;
+		int freeSlot = 0, freePos = 0, cursor = 16 + relInfo.calculSlotCount();
 
-		for(int pos = 8; pos < relInfo.calculSlotCount() + 8; pos++){
-			if(bufCurPageId.get(pos) == 0){
+		for(int i = 16; i < relInfo.calculSlotCount() + 16; i++){
+			if(bufCurPageId.get(i) == 0){
 				freeSlot++;
-				// write dataPage
-				break;
+				if(freeSlot == 1){
+					freePos = i - 16;
+				}
 			}
 		}
 
-		if(freeSlot == 0){
+		for(int i = 0; i < freePos; i++){
+			cursor += relInfo.calculRecordSize();
+		}
+
+		record.writeToBuffer(bufCurPageId, cursor);
+
+		if(freeSlot == 1){
+			PageId prevPage = readPageIdFromPageBuffer(bufCurPageId, true);
+			PageId nextPage = readPageIdFromPageBuffer(bufCurPageId, false);
+
+			ByteBuffer prevBuf = bm.getPage(prevPage);
+			ByteBuffer nextBuf = bm.getPage(nextPage);
+
 			writePageIdFromPageBuffer(pageId, headerPage, false);
 			writePageIdFromPageBuffer(relInfo.getHeaderPageId(), bufCurPageId, true);
+
+			if(!prevPage.equals(relInfo.getHeaderPageId())){
+				writePageIdFromPageBuffer(nextPage, prevBuf, false);
+				writePageIdFromPageBuffer(prevPage, nextBuf, true);
+			} else {
+				writePageIdFromPageBuffer(nextPage, headerPage, true);
+				writePageIdFromPageBuffer(relInfo.getHeaderPageId(), nextBuf, true);
+				
+			}
+
+			bm.freePage(prevPage, true);
+			bm.freePage(nextPage, true);
+
 		}
 
 		bm.freePage(pageId, true);
 		bm.freePage(relInfo.getHeaderPageId(), true);
 
-		return new Rid(pageId, freeSlot);
+
+		return new Rid(pageId, freePos);
 	}
 }
