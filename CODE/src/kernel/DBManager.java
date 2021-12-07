@@ -57,8 +57,9 @@ public class DBManager
 	 * Processing a command 
 	 * @param command the command to process
 	 */
-	public void processCommand(String command)
+	public void processCommand(String[] command)
 	{
-		/*To implement*/
+		
+
 	}
 }
