@@ -59,7 +59,17 @@ public class DBManager
 	 */
 	public void processCommand(String[] command)
 	{
-		
-
+		switch(command[0])
+		{
+			case "CREATE":
+				if (command[1].toUpperCase().equals("RELATION"))
+				{
+					/*Launch CreateRelationCommand*/
+				}
+				break;
+			case "DROPDB":
+				/*Handle dropdb*/
+				break;
+		}
 	}
 }
