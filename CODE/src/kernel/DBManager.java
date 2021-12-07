@@ -64,7 +64,8 @@ public class DBManager
 			case "CREATE":
 				if (command[1].toUpperCase().equals("RELATION"))
 				{
-					/*Launch CreateRelationCommand*/
+					CreateRelationCommand crc = new CreateRelationCommand(command[2],command[3]);
+                    crc.execute();
 				}
 				break;
 			case "DROPDB":

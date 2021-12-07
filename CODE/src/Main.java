@@ -30,7 +30,13 @@ public class Main{
                 System.out.println("Commandes disponibles : " + Arrays.toString(commands));
                 break;
             case "EXIT":
-                dbm.finish();
+                    try {
+                        dbm.finish();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 break;
             default:
                 dbm.processCommand(cmd);
