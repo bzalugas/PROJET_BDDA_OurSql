@@ -30,12 +30,30 @@ public class FileManagerTests{
         } catch (Exception e) {
             System.out.println(e);
         }
-       
-       
-        
+    }
+
+    public static void testwritePageIdFromPageBuffer(){
+
+        FileManager fm = FileManager.getInstance();
+        try {
+            ByteBuffer buf = BufferManager.getInstance().getPage(new PageId(1,0));
+
+            boolean first = false;
+            PageId pid = new PageId(1,0);
+            System.out.println("Avant");
+            System.out.println(pid.getFileIdx());
+            System.out.println(pid.getPageIdx());
+            fm.writePageIdFromPageBuffer(pid,buf, first);
+            System.out.println("après");
+            System.out.println(pid.getFileIdx());
+            System.out.println(pid.getPageIdx());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
 
     }
+
 
     public static void main(String[] args){
          //System.out.println("abc");
@@ -47,7 +65,8 @@ public class FileManagerTests{
         final int TOT_PAGES = 10;
         
 
-         testreadPageIdFromPageBuffer();
+         //testreadPageIdFromPageBuffer();
+         testwritePageIdFromPageBuffer();
        
     }
 
