@@ -123,4 +123,13 @@ public class Catalog implements Serializable
     {
         this.listRelationInfo = listRelationInfo;
     }
+
+	/**
+	 * Reset all values of Catalog
+	 */
+	public void reset()
+	{
+		for (RelationInfo relation : listRelationInfo)
+			delRelation(relation.getRelationName());
+	}
 }

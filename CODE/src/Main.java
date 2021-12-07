@@ -10,7 +10,7 @@ public class Main{
 
     public static void main(String[] args)
     {
-        String cmd;
+        String[] cmd;
         Scanner in = new Scanner(System.in);
         DBManager dbm = DBManager.getInstance();
         String[] commands = {"HELP", "ADD", "LIST", "QUIT"};
@@ -22,21 +22,28 @@ public class Main{
         do
         {
             System.out.print("Entrez une commande (HELP pour l'aide et EXIT pour quitter): ");
-            cmd = in.nextLine();
-            switch(cmd)
+            cmd = in.nextLine().split(" ");
+			cmd[0] = cmd[0].toUpperCase();
+            switch(cmd[0])
             {
             case "HELP":
                 System.out.println("Commandes disponibles : " + Arrays.toString(commands));
                 break;
             case "EXIT":
-                dbm.finish();
+                    try {
+                        dbm.finish();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 break;
             default:
                 dbm.processCommand(cmd);
                 break;
             }
         }
-        while (cmd.compareTo("EXIT") != 0);
+        while (cmd[0].compareTo("EXIT") != 0);
 
         in.close();
 
