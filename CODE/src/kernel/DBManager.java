@@ -68,6 +68,13 @@ public class DBManager
                     crc.execute();
 				}
 				break;
+            case "INSERT":
+                if(command[1].toUpperCase().equals("INTO"))
+                {
+                    InsertCommand ic = new InsertCommand(command[2], command[3]);
+                    ic.execute();
+                }
+                break;
 			case "DROPDB":
 				DropDBCommand.execute();
 				break;
