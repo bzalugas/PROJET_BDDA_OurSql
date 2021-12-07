@@ -44,7 +44,6 @@ public class BufferManager
 													EmptyStackException
 	{
 		int idx = -1; //idx of the first free frame (in order to visit the buffer pool only one time)
-
 		// System.out.println("bf length = " + bufferPool.length);
 		//Check if pageId already in bufferPool
 		for (int i = 0; i < bufferPool.length; i++)
@@ -55,8 +54,10 @@ public class BufferManager
 				bufferPool[i].incrementPinCount();
 				return (bufferPool[i].getBuffer());
 			}
-			else if (idx == -1 && bufferPool[i].isEmpty())
+			else if (idx == -1 && bufferPool[i].isEmpty()){
 				idx = i;
+			}
+				
 		}
 		//if not, check if there is an empty frame (idx != -1 means the first loop found a free frame)
 		
@@ -66,6 +67,7 @@ public class BufferManager
 			bufferPool[idx].setPinCount(1);
 			bufferPool[idx].setFlagDirty(false);
 			dmanager.readPage(pageId, bufferPool[idx].getBuffer());
+			
 		}
 		else
 		{
