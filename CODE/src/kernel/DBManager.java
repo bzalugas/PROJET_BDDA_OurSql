@@ -78,6 +78,9 @@ public class DBManager
 			case "DROPDB":
 				DropDBCommand.execute();
 				break;
+			case "SELECTMONO":
+				/*SelectMonoCommand()*/
+				break;
 		}
 	}
 }
