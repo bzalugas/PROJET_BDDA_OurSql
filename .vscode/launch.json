@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - BufferManagerTests",
+            "request": "launch",
+            "mainClass": "src.BufferManagerTests",
+            "projectName": "PROJET_BDDA_Zalugas_Salmi_Averty_c596ad2d"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - CatalogTest",
             "request": "launch",
             "mainClass": "src.CatalogTest",
