@@ -39,7 +39,7 @@ public class Main
         //loop for commands
         do
         {
-            System.out.print("Entrez une commande (help pour l'aide): ");
+            System.out.print("Entrez une commande (HELP pour l'aide): ");
             cmd = in.nextLine().split(" ");
             cmd[0] = cmd[0].toUpperCase();
             switch(cmd[0])

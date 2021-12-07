@@ -223,7 +223,7 @@ public class FileManager {
 		return res;
 	}
 
-	public Rid InsertRecordIntoRelation(RelationInfo relInfo, Record record) throws FileNotFoundException, EmptyStackException, IOException, TooManyFreePageException{
+	public Rid insertRecordIntoRelation(RelationInfo relInfo, Record record) throws FileNotFoundException, EmptyStackException, IOException, TooManyFreePageException{
 		return this.writeToDataPage(relInfo, record, this.getFreeDataPageId(relInfo));
 	}
 
