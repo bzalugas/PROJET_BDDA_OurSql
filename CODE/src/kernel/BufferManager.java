@@ -119,6 +119,20 @@ public class BufferManager
 		}
 	}
 
+	/**
+	 * Resets all values of the BufferManager
+	 */
+	public void reset()
+	{
+		for (Frame frame : bufferPool)
+		{
+			frame.setPageId(new PageId(-1, 0));
+			frame.setPinCount(0);
+			frame.setFlagDirty(false);
+			frame.setBuffer(ByteBuffer.allocate(DBParams.pageSize));
+		}
+		unusedFrames = new Stack<Frame>();
+	}
 
 	public Frame[] getBufferPool() {
 		return this.bufferPool;

@@ -69,7 +69,7 @@ public class DBManager
 				}
 				break;
 			case "DROPDB":
-				/*Handle dropdb*/
+				DropDBCommand.execute();
 				break;
 		}
 	}
