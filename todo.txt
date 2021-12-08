@@ -1,9 +1,9 @@
-U : Urgent ; O : Obligatoire mais pas urgent ; Af : Pas obligatoire, mais à faire ; Opt : optionnel
+Kevin :
+- Revue des tests TP4 et TP5
 
-Af - Toutes les gestions d'exceptions (créer des classes pour les exceptions non existantes qui pourraient survenir)
+Pierre :
+- BatchInsert
 
-U - Ecrire la classe de tests BufferManager
-
-U - Ecrire getPage() (Kevin) | Ecrire freePage() (Pierre) | FlushAll() (On verra)
-
-U - MRU dans getPage()
+Bastien :
+- selectMono
+- delete
