@@ -138,8 +138,8 @@ public class Catalog implements Serializable
             if (rel.getRelationName().equals(name)) {
                 return true;
             }
-            return false;
         }
+        return false;
     }
     public RelationInfo getRelationByName(String name){
         for (RelationInfo rel : listRelationInfo ) {
@@ -147,5 +147,6 @@ public class Catalog implements Serializable
                 return rel;
             }
         }
+        return new RelationInfo("NULL",0,new PageId(0,0));
     }
 }

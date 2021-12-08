@@ -1,4 +1,4 @@
-package kernel.exceptions;
+package exceptions;
 
 @SuppressWarnings("serial")
 /**

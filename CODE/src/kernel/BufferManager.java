@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.EmptyStackException;
 import java.util.Stack;
-import kernel.exceptions.*;
+import exceptions.*;
 
 /**
  * Class to manage frames

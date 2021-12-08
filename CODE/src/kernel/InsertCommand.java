@@ -1,5 +1,8 @@
 package kernel;
 
+import java.io.IOException;
+import exceptions.*;
+
 public class InsertCommand {
     private String nameRelation;
     private String cmd;
@@ -14,9 +17,15 @@ public class InsertCommand {
         Catalog cat = Catalog.getInstance();
 
         if (cat.relationExiste(nameRelation)) {
-            Record rec = new Record(getRelationByName(nameRelation));
+            Record rec = new Record(cat.getRelationByName(nameRelation));
             refreshRecord(rec);
-            fm.insertRecordIntoRelation(getRelationByName(nameRelation),rec);
+            try{
+               fm.insertRecordIntoRelation(cat.getRelationByName(nameRelation),rec);
+            }
+            catch (IOException | TooManyFreePageException e) {
+            e.printStackTrace();
+            }
+            
         }
              
     }
