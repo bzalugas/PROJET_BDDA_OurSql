@@ -10,7 +10,25 @@ public class InsertCommand {
     }
 
     public void execute(){
-        
+        FileManager fm = FileManager.getInstance();
+        Catalog cat = Catalog.getInstance();
+
+        if (cat.relationExiste(nameRelation)) {
+            Record rec = new Record(getRelationByName(nameRelation));
+            refreshRecord(rec);
+            fm.insertRecordIntoRelation(getRelationByName(nameRelation),rec);
+        }
+             
+    }
+
+    public void refreshRecord(Record rec){
+        String command = this.cmd.substring(1, cmd.length() - 1);
+        String [] values;
+        values = command.split(",");
+
+        for(String val : values){
+           rec.setValues(val);
+        }
     }
     public String getNameRelation() {
         return nameRelation;

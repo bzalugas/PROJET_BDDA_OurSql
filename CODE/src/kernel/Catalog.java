@@ -132,4 +132,20 @@ public class Catalog implements Serializable
 		for (RelationInfo relation : listRelationInfo)
 			delRelation(relation.getRelationName());
 	}
+    
+    public Boolean relationExiste(String name){
+        for (RelationInfo rel : listRelationInfo ) {
+            if (rel.getRelationName().equals(name)) {
+                return true;
+            }
+            return false;
+        }
+    }
+    public RelationInfo getRelationByName(String name){
+        for (RelationInfo rel : listRelationInfo ) {
+            if (rel.getRelationName().equals(name)) {
+                return rel;
+            }
+        }
+    }
 }
