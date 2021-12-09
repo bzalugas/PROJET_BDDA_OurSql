@@ -75,6 +75,13 @@ public class DBManager
                     ic.execute();
                 }
                 break;
+			case "BATCHINSERT":
+			if(command[1].toUpperCase().equals("INTO"))
+			{
+				BatchInsertCommand bic = new BatchInsertCommand(command[2], command[5]);
+				bic.execute();
+			}
+				break;
 			case "DROPDB":
 				DropDBCommand.execute();
 				break;
