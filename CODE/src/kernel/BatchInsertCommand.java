@@ -17,7 +17,10 @@ public class BatchInsertCommand {
         this.name = name;
     }
 
-
+    /** Execute the BatchInsert command
+     * 
+     * 
+     */
     public void execute(){
         File f = new File(this.filePath);
         FileManager fm = FileManager.getInstance();
