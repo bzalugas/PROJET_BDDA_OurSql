@@ -86,7 +86,8 @@ public class DBManager
 				DropDBCommand.execute();
 				break;
 			case "SELECTMONO":
-				/*SelectMonoCommand()*/
+				SelectMonoCommand select = new SelectMonoCommand(command);
+				select.execute();
 				break;
 		}
 	}

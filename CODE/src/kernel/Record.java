@@ -99,6 +99,19 @@ public class Record
         return this.values;
     }
 
+    /**
+     * Get a value by index
+     * @param index the index of the value
+     * @return the value or empty string if the index is incorrect
+     *
+     */
+    public String getValue(int index)
+    {
+        if (index < values.size())
+            return this.values.get(index);
+        return "";
+    }
+
     public void setValues(String values)
     {
         this.values.add(values);

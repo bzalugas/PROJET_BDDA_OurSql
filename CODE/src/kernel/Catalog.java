@@ -147,6 +147,7 @@ public class Catalog implements Serializable
                 return rel;
             }
         }
-        return new RelationInfo("NULL",0,new PageId(0,0));
+        // return new RelationInfo("NULL",0,new PageId(0,0));
+        return null;
     }
 }

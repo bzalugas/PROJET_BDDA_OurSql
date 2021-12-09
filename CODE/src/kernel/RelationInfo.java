@@ -81,9 +81,36 @@ public class RelationInfo
 		return this.columnName;
 	}
 
+	/**
+	 * Get the index of the columnName
+	 * @param name the name of the column
+	 * @return index of the column or -1 if the name is wrong
+	 *
+	 */
+	public int getIndexColumnName(String name)
+	{
+		for (int i = 0; i < columnName.length; i++)
+			if (columnName[i].equals(name))
+				return (i);
+		return (-1);
+	}
+
 	public String[] getColumnType()
 	{
 		return this.columnType;
+	}
+
+	/**
+	 * Get the type of the column by index
+	 * @param index the index of the column
+	 * @return the columnType or empty String if the index is incorrect
+	 *
+	 */
+	public String getPreciseColumnType(int index)
+	{
+		if (index < columnType.length)
+			return columnType[index];
+		return "";
 	}
 
     public PageId getHeaderPageId()
