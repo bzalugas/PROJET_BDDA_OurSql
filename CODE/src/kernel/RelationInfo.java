@@ -4,7 +4,7 @@ public class RelationInfo
 {
 
 	private String		relationName;
-	private int		columnNumber;
+	private int			columnNumber;
 	private String[]	columnName;
 	private String[]	columnType;
 	private PageId		headerPageId;

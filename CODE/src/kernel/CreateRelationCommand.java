@@ -3,7 +3,7 @@ package kernel;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import exceptions.TooManyFreePageException;
+import kernel.exceptions.TooManyFreePageException;
 
 public class CreateRelationCommand {
     private String relationName;

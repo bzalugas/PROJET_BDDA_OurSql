@@ -37,7 +37,7 @@ public class RelationInfoTests
 		DBParams.pageSize = 10;
 		DBParams.maxPagesPerFile = 4;
         DBParams.frameCount = 4;
-		final int TOT_PAGES = 10;
+		// final int TOT_PAGES = 10;
         
         //Valeurs choisi arbitrairement
         String relationName = "TestRelInfo";

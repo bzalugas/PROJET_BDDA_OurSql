@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import java.nio.ByteBuffer;
 
 import kernel.*;
@@ -39,7 +39,7 @@ public class RecordTests
         DBParams.pageSize = 10;
         DBParams.maxPagesPerFile = 4;
         DBParams.frameCount = 4;
-        final int TOT_PAGES = 10;
+        // final int TOT_PAGES = 10;
 
         //Test de writeToBuffer
 

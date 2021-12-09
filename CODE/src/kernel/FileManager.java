@@ -6,7 +6,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 
-import exceptions.TooManyFreePageException;
+import kernel.exceptions.TooManyFreePageException;
 
 public class FileManager {
     private static FileManager instance = null;

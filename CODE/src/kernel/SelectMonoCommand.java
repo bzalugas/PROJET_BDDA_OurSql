@@ -1,5 +1,7 @@
 package kernel;
 
+import java.util.ArrayList;
+
 /**
  * Handling SelectMono command
  */
@@ -25,9 +27,12 @@ public class SelectMonoCommand
 	public void execute()
 	{
 		String relationName;
-		if (selectCmd.length >= 4 && selectCmd[1].equals("*") && selectCmd[2].toUpperCase().equals("FROM"))
+
+		if (selectCmd.length >= 4 && selectCmd[1].equals("*")
+			&& selectCmd[2].toUpperCase().equals("FROM"))
 		{
 			relationName = selectCmd[3];
+			ArrayList<Record> records = FileManager.getInstance().getAllRecords(Catalog.getInstance().getRelationByName(relationName));
 		}
 	}
 }

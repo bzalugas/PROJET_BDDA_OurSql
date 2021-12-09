@@ -1,5 +1,4 @@
 import kernel.*;
-import java.util.ArrayList;
 
 public class CatalogTests
 {

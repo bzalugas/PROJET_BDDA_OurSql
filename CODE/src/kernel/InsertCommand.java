@@ -1,7 +1,7 @@
 package kernel;
 
 import java.io.IOException;
-import exceptions.*;
+import kernel.exceptions.*;
 
 public class InsertCommand {
     private String nameRelation;
