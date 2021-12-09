@@ -56,8 +56,8 @@ public class FileManagerTests{
 
 
     public static void main(String[] args){
-         //System.out.println("abc");
-         String path = args[0];
+        //System.out.println("abc");
+        String path = args[0];
 		DBParams.DBPath = path;
 		DBParams.pageSize = 10;
 		DBParams.maxPagesPerFile = 4;
@@ -65,8 +65,10 @@ public class FileManagerTests{
         final int TOT_PAGES = 10;
         
 
-         //testreadPageIdFromPageBuffer();
-         testwritePageIdFromPageBuffer();
+        //testreadPageIdFromPageBuffer();
+        //testwritePageIdFromPageBuffer();
+        FileManager fm = FileManager.getInstance();
+		fm.createHeaderPage();
        
     }
 
