@@ -32,22 +32,22 @@ public class Record
             type = relInfo.getColumnType()[i].toLowerCase();
             switch(type)
             {
-                case "int":
-                    int resInt = Integer.valueOf(values.get(i));
-                    buff.putInt(resInt);
-                    break;
-                case "float":
-                    float resFloat = Float.valueOf(values.get(i));
-                    buff.putFloat(resFloat);
-                    break;
-                default:
-                    if (type.substring(0,5).equals("string"))
-                    {
-                        len = Integer.parseInt(type.substring(6));
-                        for (j = 0; j < len; j++)
-                            buff.putChar(values.get(i).charAt(i));
-                    }
-                    break;
+            case "int":
+                int resInt = Integer.valueOf(values.get(i));
+                buff.putInt(resInt);
+                break;
+            case "float":
+                float resFloat = Float.valueOf(values.get(i));
+                buff.putFloat(resFloat);
+                break;
+            default:
+                if (type.startsWith("string"))
+                {
+                    len = Integer.parseInt(type.substring(6));
+                    for (j = 0; j < len; j++)
+                        buff.putChar(values.get(i).charAt(j));
+                }
+                break;
             }
         }
     }
@@ -68,28 +68,28 @@ public class Record
         {
             switch(type)
             {
-                case "int":
-                    resInt = buff.getInt();
-                    this.values.add(String.valueOf(resInt));
-                    break;
-                case "float":
-                    resFloat = buff.getFloat();
-                    this.values.add(String.valueOf(resFloat));
-                    break;
-                default:
-                    if (type.substring(0,5).equals("string"))
-                    {
-                        len = Integer.parseInt(type.substring(6));
-                        j = 0;
-                        chars = new char[len];
-                        for (i = pos; i < pos+len; i++){
-                            chars[j] = buff.getChar(i);
-                            j++;
-                        }
-                        resString = new String(chars);
-                        this.values.add(resString);
+            case "int":
+                resInt = buff.getInt();
+                this.values.add(String.valueOf(resInt));
+                break;
+            case "float":
+                resFloat = buff.getFloat();
+                this.values.add(String.valueOf(resFloat));
+                break;
+            default:
+                if (type.startsWith("string"))
+                {
+                    len = Integer.parseInt(type.substring(6));
+                    j = 0;
+                    chars = new char[len];
+                    for (i = pos; i < pos+len; i++){
+                        chars[j] = buff.getChar();
+                        j++;
                     }
-                    break;
+                    resString = new String(chars);
+                    this.values.add(resString);
+                }
+                break;
             }
         }
     }
