@@ -1,13 +1,16 @@
 package kernel;
 
-public class RelationInfo
+import java.io.Serializable;
+
+public class RelationInfo implements Serializable
 {
 
-	private String		relationName;
-	private int			columnNumber;
-	private String[]	columnName;
-	private String[]	columnType;
-	private PageId		headerPageId;
+	private static final long   serialVersionUID = 23L;
+	private String				relationName;
+	private int					columnNumber;
+	private String[]			columnName;
+	private String[]			columnType;
+	private PageId				headerPageId;
 	// private int		recordSize;
 	// private int		slotCount;
 

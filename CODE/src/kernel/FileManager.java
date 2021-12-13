@@ -49,7 +49,7 @@ public class FileManager {
 	 * @param buf
 	 * @param first
 	 */
-	public void writePageIdFromPageBuffer(PageId pageId, ByteBuffer buf, boolean first)
+	public void writePageIdToPageBuffer(PageId pageId, ByteBuffer buf, boolean first)
 	{
 		String tmp = pageId.getFileIdx() + "" + pageId.getPageIdx();
 
@@ -75,8 +75,8 @@ public class FileManager {
 
 		ByteBuffer buf = bm.getPage(pageId);
 
-		writePageIdFromPageBuffer(new PageId(-1, 0), buf, true);
-		writePageIdFromPageBuffer(new PageId(-1, 0), buf, false);
+		writePageIdToPageBuffer(new PageId(-1, 0), buf, true);
+		writePageIdToPageBuffer(new PageId(-1, 0), buf, false);
 
 		bm.freePage(pageId, true);
 
@@ -100,9 +100,9 @@ public class FileManager {
 		ByteBuffer buf = bm.getPage(pageId);
 		PageId nextPageId = readPageIdFromPageBuffer(bufHeaderPage, true);
 
-		writePageIdFromPageBuffer(pageId, bufHeaderPage, true);
-		writePageIdFromPageBuffer(relInfo.getHeaderPageId(), buf, true);
-		writePageIdFromPageBuffer(nextPageId, buf, false);
+		writePageIdToPageBuffer(pageId, bufHeaderPage, true);
+		writePageIdToPageBuffer(relInfo.getHeaderPageId(), buf, true);
+		writePageIdToPageBuffer(nextPageId, buf, false);
 		
 		bm.freePage(pageId, true);
 		bm.freePage(relInfo.getHeaderPageId(), true);
@@ -177,15 +177,15 @@ public class FileManager {
 			ByteBuffer prevBuf = bm.getPage(prevPage);
 			ByteBuffer nextBuf = bm.getPage(nextPage);
 
-			writePageIdFromPageBuffer(pageId, headerPage, false);
-			writePageIdFromPageBuffer(relInfo.getHeaderPageId(), bufCurPageId, true);
+			writePageIdToPageBuffer(pageId, headerPage, false);
+			writePageIdToPageBuffer(relInfo.getHeaderPageId(), bufCurPageId, true);
 
 			if(!prevPage.equals(relInfo.getHeaderPageId())){
-				writePageIdFromPageBuffer(nextPage, prevBuf, false);
-				writePageIdFromPageBuffer(prevPage, nextBuf, true);
+				writePageIdToPageBuffer(nextPage, prevBuf, false);
+				writePageIdToPageBuffer(prevPage, nextBuf, true);
 			} else {
-				writePageIdFromPageBuffer(nextPage, headerPage, true);
-				writePageIdFromPageBuffer(relInfo.getHeaderPageId(), nextBuf, true);
+				writePageIdToPageBuffer(nextPage, headerPage, true);
+				writePageIdToPageBuffer(relInfo.getHeaderPageId(), nextBuf, true);
 				
 			}
 

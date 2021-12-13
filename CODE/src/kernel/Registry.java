@@ -9,10 +9,10 @@ import java.io.ObjectOutputStream;
 import java.io.File;
 import java.io.IOException;
 
-@SuppressWarnings("serial")
 public class Registry implements Serializable
 {
 
+    private static final long   serialVersionUID = 23L;
     private static Registry instance = null;
     private ArrayList<DataFile> files;
     private int lastFileIndex;

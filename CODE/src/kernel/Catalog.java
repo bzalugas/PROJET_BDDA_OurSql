@@ -7,9 +7,9 @@ import java.io.*;
  * Contains scheme informations for all database
  */
 
-@SuppressWarnings("serial")
 public class Catalog implements Serializable
 {
+    private static final long   serialVersionUID = 23L;
     /*Single instance of Catalog*/
     private static Catalog instance = null;
     /*List of relations*/
@@ -53,11 +53,13 @@ public class Catalog implements Serializable
             }
             catch (IOException e)
             {
-                System.out.println("IOException in Catalog.getInstance " + e.getMessage());
+                System.out.println("IOException in Catalog.getInstance");
+                e.printStackTrace();
             }
             catch (ClassNotFoundException e)
             {
                 System.out.println("ClassNotFoundException in Catalog.getInstance " + e.getMessage());
+                e.printStackTrace();
             }
 
         }
@@ -82,6 +84,7 @@ public class Catalog implements Serializable
         catch (IOException e)
         {
             System.out.println("IOException in Catalog.save : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

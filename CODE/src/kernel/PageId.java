@@ -1,8 +1,11 @@
 package kernel;
 // Class that manage pages id.
 
-public class PageId
+import java.io.Serializable;
+
+public class PageId implements Serializable
 {
+    private static final long   serialVersionUID = 23L;
     // Properties of the PageId class.
     private int FileIdx; // Id of the file which contains the current page.
     private int PageIdx; // Id of the current page.
