@@ -130,11 +130,10 @@ public class FileManager {
 			return this.addDataPage(relInfo);
 		}
 
-		bm.freePage(pageId, false);
+		// bm.freePage(pageId);
 		bm.freePage(pageIdHeaderPage, false);
 
 		return pageId;
-
 	}
 
 	/** Write a new record to a given data page.

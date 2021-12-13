@@ -61,34 +61,37 @@ public class DBManager
 	{
 		switch(command[0])
 		{
-			case "CREATE":
-				if (command[1].toUpperCase().equals("RELATION"))
-				{
-					CreateRelationCommand crc = new CreateRelationCommand(command[2],command[3]);
-                    crc.execute();
-				}
-				break;
-            case "INSERT":
-                if(command[1].toUpperCase().equals("INTO"))
-                {
-                    InsertCommand ic = new InsertCommand(command[2], command[3]);
-                    ic.execute();
-                }
-                break;
-			case "BATCHINSERT":
+		case "CREATE":
+			if (command[1].toUpperCase().equals("RELATION"))
+			{
+				CreateRelationCommand crc = new CreateRelationCommand(command[2],command[3]);
+				crc.execute();
+			}
+			break;
+		case "INSERT":
+			if(command[1].toUpperCase().equals("INTO"))
+			{
+				InsertCommand ic = new InsertCommand(command[2], command[4]);
+				ic.execute();
+			}
+			break;
+		case "BATCHINSERT":
 			if(command[1].toUpperCase().equals("INTO"))
 			{
 				BatchInsertCommand bic = new BatchInsertCommand(command[2], command[5]);
 				bic.execute();
 			}
-				break;
-			case "DROPDB":
-				DropDBCommand.execute();
-				break;
-			case "SELECTMONO":
-				SelectMonoCommand select = new SelectMonoCommand(command);
-				select.execute();
-				break;
+			break;
+		case "DROPDB":
+			DropDBCommand.execute();
+			break;
+		case "SELECTMONO":
+			SelectMonoCommand select = new SelectMonoCommand(command);
+			select.execute();
+			break;
+		case "DELETE":
+
+			break;
 		}
 	}
 }

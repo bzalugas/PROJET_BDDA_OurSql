@@ -33,14 +33,17 @@ public class CreateRelationCommand {
             this.columnNames.add(name);
             this.columnTypes.add(type);
         }
-    
     }
 
     public void execute(){
         FileManager fm = FileManager.getInstance();
         try {
             PageId headerPageId = fm.createHeaderPage();
-            RelationInfo relationInfo = new RelationInfo(this.relationName, this.nbColumn, headerPageId);
+            String[] stringColNames = new String[columnNames.size()];
+            String[] stringColTypes = new String[columnTypes.size()];
+            stringColNames = columnNames.toArray(stringColNames);
+            stringColTypes = columnTypes.toArray(stringColTypes);
+            RelationInfo relationInfo = new RelationInfo(this.relationName, this.nbColumn, stringColNames, stringColTypes, headerPageId);
 
             Catalog.getInstance().addRelation(relationInfo);
         } catch (IOException | TooManyFreePageException e) {

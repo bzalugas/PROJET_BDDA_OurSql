@@ -103,7 +103,6 @@ public class Catalog implements Serializable
     public void addRelation(RelationInfo relationInfo)
     {
         this.listRelationInfo.add(relationInfo);
-        // System.out.println("Relations du catalog : " + listRelationInfo);
     }
 
     /**
@@ -133,8 +132,7 @@ public class Catalog implements Serializable
 	 */
 	public void reset()
 	{
-		for (int i = 0; i < listRelationInfo.size(); i++)
-			delRelation(listRelationInfo.get(i).getRelationName());
+		listRelationInfo.clear();
 	}
     
     public Boolean relationExiste(String name){
@@ -145,13 +143,18 @@ public class Catalog implements Serializable
         }
         return false;
     }
+
     public RelationInfo getRelationByName(String name){
         for (RelationInfo rel : listRelationInfo ) {
             if (rel.getRelationName().equals(name)) {
                 return rel;
             }
         }
-        // return new RelationInfo("NULL",0,new PageId(0,0));
         return null;
+    }
+
+    public void displayRelations()
+    {
+        System.out.println("Relations du catalog : " + listRelationInfo);
     }
 }

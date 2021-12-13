@@ -1,6 +1,7 @@
 package kernel;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class RelationInfo implements Serializable
 {
@@ -23,6 +24,15 @@ public class RelationInfo implements Serializable
 		this.headerPageId = headerPageId;
 	}
 
+	public RelationInfo(String relationName, int columnNumber, String[] columnNames, String[] columnTypes, PageId headerPageId)
+	{
+		this.relationName = relationName;
+		this.columnNumber = columnNumber;
+		this.columnName = columnNames;
+		this.columnType =  columnTypes;
+		this.headerPageId = headerPageId;
+	}
+
 	/**
 	 * Calculation of the size of a Record
 	 * @return the size of a Record
@@ -32,6 +42,7 @@ public class RelationInfo implements Serializable
 		int	recordSize = 0;
 		int	len;
 
+		// System.out.println("columnType : " + Arrays.toString(columnType));
 		for (String type : columnType)
 		{
 			type.toLowerCase();
@@ -141,8 +152,18 @@ public class RelationInfo implements Serializable
 		this.columnType[i] = columnType;
 	}
 
-	// public void listColumnType()
-    // {
-
-	// }
+	@Override
+	public String toString()
+	{
+		StringBuilder s = new StringBuilder(relationName);
+		s.append(" (");
+		for (int i = 0; i < columnName.length; i++)
+		{
+			s.append(columnName[i]).append(":").append(columnType[i]);
+			if (i + 1 < columnName.length)
+				s.append(",");
+		}
+		s.append(")");
+		return (s.toString());
+	}
 }

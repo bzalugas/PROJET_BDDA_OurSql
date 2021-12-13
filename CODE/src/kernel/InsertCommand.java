@@ -15,12 +15,15 @@ public class InsertCommand {
     public void execute(){
         FileManager fm = FileManager.getInstance();
         Catalog cat = Catalog.getInstance();
+        Rid rid;
 
         if (cat.relationExiste(nameRelation)) {
             Record rec = new Record(cat.getRelationByName(nameRelation));
             refreshRecord(rec);
             try{
-               fm.insertRecordIntoRelation(cat.getRelationByName(nameRelation),rec);
+
+                rid = fm.insertRecordIntoRelation(cat.getRelationByName(nameRelation),rec);
+                rec.setRid(rid);
             }
             catch (IOException | TooManyFreePageException e) {
             e.printStackTrace();

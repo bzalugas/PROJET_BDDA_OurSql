@@ -14,7 +14,7 @@ public class Main
 		Scanner in;
 		DBManager dbm;
 		String[] commands = {"HELP", "EXIT", "CREATE RELATION", "DROPDB", "INSERT",
-			"BATCHINSERT", "SELECTMONO", "DELETE"};
+			"BATCHINSERT", "SELECTMONO", "DELETE", "SHOW"};
 
 		DBParams.DBPath = args[0];
 		DBParams.pageSize = 4096;
@@ -42,6 +42,9 @@ public class Main
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				break;
+			case "SHOW":
+				Catalog.getInstance().displayRelations();
 				break;
 			default:
 				dbm.processCommand(cmd);

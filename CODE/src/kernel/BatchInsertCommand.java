@@ -25,6 +25,7 @@ public class BatchInsertCommand {
         File f = new File(this.filePath);
         FileManager fm = FileManager.getInstance();
         Catalog cat = Catalog.getInstance();
+        Rid rid;
 
         if(cat.relationExiste(this.name))
             try(BufferedReader br = new BufferedReader(new FileReader(f))){
@@ -36,7 +37,8 @@ public class BatchInsertCommand {
                     for(String str : parsedLine){
                         newRecord.setValues(str);
                     }
-                    fm.insertRecordIntoRelation(cat.getRelationByName(this.name),newRecord);
+                    rid = fm.insertRecordIntoRelation(cat.getRelationByName(this.name),newRecord);
+                    newRecord.setRid(rid);
                 }
             } catch(IOException | EmptyStackException | TooManyFreePageException e) {
                 e.printStackTrace();

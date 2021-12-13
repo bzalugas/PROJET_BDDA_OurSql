@@ -7,11 +7,13 @@ public class Record
 
     private RelationInfo relInfo;
     private ArrayList<String> values;
+    private Rid rid;
 
     public Record(RelationInfo relInfo)
     {
         this.relInfo = relInfo;
         this.values = new ArrayList<String>();
+        this.rid = null;
     }
 
     /**
@@ -44,7 +46,7 @@ public class Record
                 if (type.startsWith("string"))
                 {
                     len = Integer.parseInt(type.substring(6));
-                    for (j = 0; j < len; j++)
+                    for (j = 0; j < len && j < values.get(i).length(); j++)
                         buff.putChar(values.get(i).charAt(j));
                 }
                 break;
@@ -126,11 +128,22 @@ public class Record
     {
         this.relInfo = relInfo;
     }
+
     public void printValues()
     {   
         System.out.println("");
         for(String value : this.values) {
             System.out.print("["+value+"]");
         }
+    }
+
+    public void setRid(Rid rid)
+    {
+        this.rid = rid;
+    }
+
+    public Rid getRid()
+    {
+        return this.rid;
     }
 }
