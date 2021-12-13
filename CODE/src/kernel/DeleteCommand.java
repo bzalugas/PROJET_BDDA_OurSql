@@ -88,7 +88,7 @@ public class DeleteCommand
 		}
 	}
 
-	private void deleteRecords() throws FileNotFoundException, IOException
+	private void deleteRecords() throws FileNotFoundException, IOException, TooManyFreePageException
 	{
 		Rid rid;
 		BufferManager bm = BufferManager.getInstance();
@@ -99,7 +99,10 @@ public class DeleteCommand
 			rid = r.getRid();
 			buf = bm.getPage(rid.getPageId());
 			buf.put(16 + rid.getSlotIdx(), (byte)0);
+			bm.freePage(rid.getPageId(), false);
 		}
+
+
 	}
 
 	/**

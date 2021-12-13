@@ -1,5 +1,7 @@
 import java.nio.ByteBuffer;
 import kernel.*;
+import kernel.exceptions.TooManyFreePageException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -43,7 +45,7 @@ public class FileManagerTests{
             System.out.println("Avant");
             System.out.println(pid.getFileIdx());
             System.out.println(pid.getPageIdx());
-            fm.writePageIdFromPageBuffer(pid,buf, first);
+            fm.writePageIdToPageBuffer(pid,buf, first);
             System.out.println("après");
             System.out.println(pid.getFileIdx());
             System.out.println(pid.getPageIdx());
@@ -68,7 +70,15 @@ public class FileManagerTests{
         //testreadPageIdFromPageBuffer();
         //testwritePageIdFromPageBuffer();
         FileManager fm = FileManager.getInstance();
-		fm.createHeaderPage();
+		try {
+            fm.createHeaderPage();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TooManyFreePageException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
        
     }
 
