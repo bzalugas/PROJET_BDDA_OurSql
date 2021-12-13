@@ -168,7 +168,7 @@ public class FileManager {
 		}
 
 		record.writeToBuffer(bufCurPageId, cursor);
-
+		bufCurPageId.put(16 + freePos, (byte)1);
 		if(freeSlot == 1){
 			PageId prevPage = readPageIdFromPageBuffer(bufCurPageId, true);
 			PageId nextPage = readPageIdFromPageBuffer(bufCurPageId, false);
@@ -227,6 +227,7 @@ public class FileManager {
 	}
 
 	public ArrayList<Record> getAllRecords(RelationInfo relInfo) throws FileNotFoundException, EmptyStackException, IOException, TooManyFreePageException{
+		// System.out.println("nb records = " + );
 		return this.getRecordsInDataPage(relInfo, this.getFreeDataPageId(relInfo));
 	}
 }

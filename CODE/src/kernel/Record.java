@@ -1,6 +1,7 @@
 package kernel;
 import java.util.ArrayList;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 public class Record
 {
@@ -64,6 +65,7 @@ public class Record
         char[]  chars;
         String  resString;
 
+        // System.out.println("buffer : " + Arrays.toString(buff.array()));
         this.values.clear();
         buff.position(pos);
         for(String type : this.relInfo.getColumnType())

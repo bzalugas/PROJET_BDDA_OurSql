@@ -80,9 +80,9 @@ public class DiskManagerTests
 	{
 		String path = args[0];
 		DBParams.DBPath = path;
-		DBParams.pageSize = 10;
+		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFile = 4;
-		final int TOT_PAGES = 10;
+		final int TOT_PAGES = 100;
 		ArrayList<PageId> pages = new ArrayList<PageId>();
 
 		for (int i = 0; i < TOT_PAGES; i++)

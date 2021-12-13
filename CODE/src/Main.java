@@ -13,11 +13,12 @@ public class Main
 		String[] cmd;
 		Scanner in;
 		DBManager dbm;
-		String[] commands = {"HELP", "EXIT", "CREATE RELATION", "DROPDB", "INSERT",
+		String[] commands = {"HELP", "EXIT", "CREATE RELATION <Relation> (c1:type,c2:type,...)", "DROPDB", "INSERT INTO <Relation> RECORD (val1,val2)",
 			"BATCHINSERT", "SELECTMONO", "DELETE", "SHOW"};
 
 		DBParams.DBPath = args[0];
 		DBParams.pageSize = 4096;
+		// DBParams.pageSize = 2048;
 		DBParams.maxPagesPerFile = 4;
 		DBParams.frameCount = 2;
 

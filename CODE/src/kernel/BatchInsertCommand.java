@@ -35,9 +35,13 @@ public class BatchInsertCommand {
                     Record newRecord = new Record(cat.getRelationByName(this.name));
 
                     for(String str : parsedLine){
+                        // System.out.println("ajout valeur " + str);
                         newRecord.setValues(str);
                     }
                     rid = fm.insertRecordIntoRelation(cat.getRelationByName(this.name),newRecord);
+                    // String[] tab = {"SELECTMONO","*","FROM","test"};
+                    // SelectMonoCommand s = new SelectMonoCommand(tab);
+                    // s.execute();
                     newRecord.setRid(rid);
                 }
             } catch(IOException | EmptyStackException | TooManyFreePageException e) {

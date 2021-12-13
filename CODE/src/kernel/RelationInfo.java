@@ -55,7 +55,7 @@ public class RelationInfo implements Serializable
                     recordSize += 4;
                     break;
                 default:
-                    if (type.substring(0,5).equals("string"))
+                    if (type.startsWith("string"))
                     {
                         len = Integer.parseInt(type.substring(6));
                         recordSize += 2 * len;

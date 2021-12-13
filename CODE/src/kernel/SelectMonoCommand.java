@@ -72,11 +72,11 @@ public class SelectMonoCommand
 			iterator = r.getValues().iterator();
 			while (iterator.hasNext())	
 			{
-				System.out.println(iterator.next());
+				System.out.print(iterator.next());
 				if (iterator.hasNext())
-					System.out.println(" ; ");
+					System.out.print(" ; ");
 				else
-					System.out.println(".");
+					System.out.print(".");
 			}
 			System.out.println();
 		}
@@ -129,6 +129,7 @@ public class SelectMonoCommand
 							columnName = condition.substring(0, indexOperator - 1);
 							askedValueString = condition.substring(indexOperator + operators[j].length() + 1, condition.length());
 							j = operators.length;
+							System.out.println("j'ai trouve l'operateur");
 						}
 					if (operator == null)
 					{
@@ -144,7 +145,7 @@ public class SelectMonoCommand
 						conditionOk = checkConditionNumber(Integer.parseInt(r.getValue(indexColumnName)), Integer.parseInt(askedValueString), columnType);
 						break;
 					case "float":
-					conditionOk = checkConditionNumber(Float.parseFloat(r.getValue(indexColumnName)), Float.parseFloat(askedValueString), columnType);
+						conditionOk = checkConditionNumber(Float.parseFloat(r.getValue(indexColumnName)), Float.parseFloat(askedValueString), columnType);
 						break;
 					default:
 						if (columnType.toLowerCase().startsWith("string"))

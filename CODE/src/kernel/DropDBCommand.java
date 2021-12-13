@@ -34,8 +34,8 @@ public class DropDBCommand
 	 */
 	private static void resetAll()
 	{
-		BufferManager.getInstance().reset();
 		Catalog.getInstance().reset();
+		BufferManager.getInstance().reset();
 		DiskManager.getInstance().cleanupFiles();
 	}
 }
