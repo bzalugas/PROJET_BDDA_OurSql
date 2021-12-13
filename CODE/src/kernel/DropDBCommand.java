@@ -36,5 +36,6 @@ public class DropDBCommand
 	{
 		BufferManager.getInstance().reset();
 		Catalog.getInstance().reset();
+		DiskManager.getInstance().cleanupFiles();
 	}
 }

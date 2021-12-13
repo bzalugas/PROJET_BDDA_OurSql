@@ -102,7 +102,7 @@ public class Registry implements Serializable
 
     public void cleanAll()
     {
-        this.files = null;
+        this.files.clear();
         this.lastFileIndex = -1;
         File f = new File(regPath);
         if (f.exists())

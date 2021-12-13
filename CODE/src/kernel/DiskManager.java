@@ -97,5 +97,6 @@ public class DiskManager
                 f.delete();
             i--;
         }
+        reg.cleanAll();
     }
 }
