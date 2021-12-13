@@ -77,14 +77,8 @@ public class Frame
         this.pinCount--;
     }
 
-    public boolean equals(Frame f)
-    {
-        return (this.pageId.equals(f.getPageId()));
-    }
-
     public boolean isEmpty()
     {
-        // System.out.println("fileIdx = " + pageId.getFileIdx());
         if (pageId.getFileIdx() == -1)
             return (true);
         return (false);

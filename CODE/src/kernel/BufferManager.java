@@ -48,9 +48,8 @@ public class BufferManager
 		//Check if pageId already in bufferPool
 		for (int i = 0; i < bufferPool.length; i++)
 		{
-			if (bufferPool[i].equals(pageId))
+			if (bufferPool[i].getPageId().equals(pageId))
 			{
-				//bufferPool[i].setPinCount(bufferPool[i].getPinCount() + 1);
 				bufferPool[i].incrementPinCount();
 				return (bufferPool[i].getBuffer());
 			}

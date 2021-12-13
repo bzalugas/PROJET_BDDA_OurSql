@@ -23,11 +23,28 @@ public class PageId implements Serializable
         return "(" + FileIdx + "," + PageIdx + ")";
     }
 
-    // Test if two page id are equals.
-    public boolean equals(PageId obj)
+    @Override
+    public boolean equals(Object obj)
     {
-        return obj.getFileIdx() == this.FileIdx
-            && obj.getPageIdx() == this.PageIdx;
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        PageId pid = (PageId) obj;
+        return pid.getFileIdx() == this.FileIdx
+            && pid.getPageIdx() == this.PageIdx;
+        // return obj.getFileIdx() == this.FileIdx
+        //     && obj.getPageIdx() == this.PageIdx;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = 17;
+
+        result = 31 * result + FileIdx;
+        result = 31 * result + PageIdx;
+        return result;
     }
 
     // Gets FileIdx.
