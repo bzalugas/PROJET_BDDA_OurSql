@@ -11,14 +11,18 @@ public class Main
 	public static void main(String[] args)
 	{
 		String[] cmd;
-		Scanner in = new Scanner(System.in);
-		DBManager dbm = DBManager.getInstance();
+		Scanner in;
+		DBManager dbm;
 		String[] commands = {"HELP", "EXIT", "CREATE RELATION", "DROPDB", "INSERT",
 			"BATCHINSERT", "SELECTMONO", "DELETE"};
 
 		DBParams.DBPath = args[0];
 		DBParams.pageSize = 4096;
 		DBParams.maxPagesPerFile = 4;
+		DBParams.frameCount = 2;
+
+		in = new Scanner(System.in);
+		dbm = DBManager.getInstance();
 
 		do
 		{

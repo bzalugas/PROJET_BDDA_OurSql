@@ -36,7 +36,7 @@ public class Catalog implements Serializable
     {
         if (instance == null)
         {
-            String path = DBParams.DBPath + "Catalog.def";
+            String path = DBParams.DBPath + "/Catalog.def";
             try
             {
                 File f = new File(path);
