@@ -25,8 +25,8 @@ public class DropDBCommand
 		File DBFolder = new File(DBParams.DBPath);
 		File[] files = DBFolder.listFiles();
 
-		for (File f : files)
-			f.delete();
+		for (int i = 0; i < files.length; i++)
+			files[i].delete();
 	}
 
 	/**

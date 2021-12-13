@@ -103,6 +103,7 @@ public class Catalog implements Serializable
     public void addRelation(RelationInfo relationInfo)
     {
         this.listRelationInfo.add(relationInfo);
+        // System.out.println("Relations du catalog : " + listRelationInfo);
     }
 
     /**
@@ -132,8 +133,8 @@ public class Catalog implements Serializable
 	 */
 	public void reset()
 	{
-		for (RelationInfo relation : listRelationInfo)
-			delRelation(relation.getRelationName());
+		for (int i = 0; i < listRelationInfo.size(); i++)
+			delRelation(listRelationInfo.get(i).getRelationName());
 	}
     
     public Boolean relationExiste(String name){
