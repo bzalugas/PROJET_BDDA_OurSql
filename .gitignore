@@ -124,6 +124,7 @@ Temporary Items
 .ionide
 
 # DB files
+DB
 *.df
 
 # Registry files
@@ -132,3 +133,6 @@ Temporary Items
 #meghnada out
 out
 CODE/src/out
+
+# test commands
+commandes.txt
